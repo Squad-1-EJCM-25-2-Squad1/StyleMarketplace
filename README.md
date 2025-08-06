@@ -5,7 +5,7 @@
 Para que seja possível a execução dos arquivos deste repositório, o usuário deve clonar através da ferramenta git. Abrindo o terminal do seu sistema operacional ou o GitBash, insira o seguinte comando na pasta desejada:
 
 ``` bash
-$ git clone https://github.com/EJCM-SQUAD-ATENAS/Atena.git
+$ git clone https://github.com/Squad-1-EJCM-25-2-Squad1/StyleMarketplace.git
 ```
 
 ## Instalação 
