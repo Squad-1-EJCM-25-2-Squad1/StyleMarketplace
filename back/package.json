@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node-dev --transpile-only --no-notify server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn server.ts",
+    "migrate": "npx prisma migrate dev --schema=src/models/schema.prisma",
+    "generate": "npx prisma generate --schema=src/models/schema.prisma",
+    "studio": "npx prisma studio --schema=src/models/schema.prisma"
   },
   "prisma": {
     "schema": "src/models/schema.prisma"
