@@ -5,6 +5,10 @@ import InfoIcons from "../../components/infoIcons";
 import shippingIcon from "../../assets/home/shippingIcon.svg"
 import returnsIcon from "../../assets/home/returnsIcon.svg"
 import securityIcon from "../../assets/home/securityIcon.svg"
+import CategoryCards from "../../components/categoryCards";
+import ProductCards from "../../components/productCards";
+import blackArrow from "../../assets/home/blackArrow.svg"
+import Footer from "../../components/footer";
 
 export default function Home(){
     return(
@@ -34,8 +38,8 @@ export default function Home(){
                 </div>
             </div>
 
-            <div className="flex flex-col gap-20 px-10">
-                <div className="flex flex-wrap justify-around w-full py-16">
+            <div className="flex flex-col items-center gap-16 px-4">
+                <div className="flex flex-wrap justify-center gap-8 w-full py-16 bg-[#FCFCFD]">
                     <InfoIcons       
                         image = {shippingIcon}
                         title = "Free Shipping"
@@ -55,7 +59,96 @@ export default function Home(){
                     />
                 </div>
 
+                <div className="flex flex-col gap-4">
+                    <label className="text-center text-4xl font-bold">Shop by Category</label>
 
+                    <label className="text-center text-xl">Explore our carefully curated collections for every style and occasion</label>
+                </div>
+
+                <div className="flex flex-wrap gap-6 justify-center">
+                    <CategoryCards
+                        title="Women's Fashion"
+                        numOfItems={500}
+                        image={noImage}
+                    />
+
+                    <CategoryCards
+                        title="Men's Fashion"
+                        numOfItems={350}
+                        image={noImage}
+                    />
+
+                    <CategoryCards
+                        title="Accessories"
+                        numOfItems={200}
+                        image={noImage}
+                    />
+
+                    <CategoryCards
+                        title="Shoes"
+                        numOfItems={180}
+                        image={noImage}
+                    />
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    <label className="text-center text-4xl font-bold">Featured Products</label>
+
+                    <label className="text-center text-xl">Handpicked favorites from our latest collection</label>
+                </div>
+
+                <div className="flex flex-wrap gap-6 justify-center">
+                    <ProductCards
+                        tag= "Best Seller"
+                        title= "Vintage Denim Jacket"
+                        image= {noImage}
+                        rating= {4.8}
+                        numOfReviews= {124}
+                        price= {89}
+                        oldPrice= {120}
+                    />
+
+                    <ProductCards
+                        tag= "New"
+                        title= "Oversized Blazer"
+                        image= {noImage}
+                        rating= {4.9}
+                        numOfReviews= {89}
+                        price= {145}
+                    />
+
+                    <ProductCards
+                        tag= "Sale"
+                        title= "Confort Slim Jeans"
+                        image= {noImage}
+                        rating= {4.7}
+                        numOfReviews= {203}
+                        price= {79}
+                        oldPrice= {99}
+                    />
+
+                    <ProductCards
+                        tag= "Premium"
+                        title= "Silk Blouse"
+                        image= {noImage}
+                        rating= {4.8}
+                        numOfReviews= {156}
+                        price= {125}
+                    />
+                </div>
+
+                    <button className="flex justify-center gap-4 items-center w-52 h-11 text-sm text-gray-950 font-semibold rounded-lg cursor-pointer bg-white border-1 border-[#E5E7EB]">
+                        View All Products
+                        <img src={blackArrow} alt=""/>
+                    </button>
+            </div>
+
+            <div className="pt-16">
+                <Footer
+                        title = "Stay in Style"
+                        subtitle = "Subscribe to our newsletter and be the first to know about new arrivals, exclusive offers, and style tips."
+                        color = "#030711"
+                    />
             </div>
         </div>
     )

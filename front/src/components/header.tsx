@@ -2,18 +2,21 @@ import logo from "../assets/home/logo.svg"
 import lupa from "../assets/home/lupa.svg"
 import favorito from "../assets/home/favorito.svg"
 import carrinho from "../assets/home/carrinho.svg"
+import hamburger from "../assets/home/hamburger.svg"
 
 export default function Header(){
     return(
         <header className="flex flex-col">
-            <div className="flex w-full justify-center p-2 bg-[#030711]">
+            <div className="flex w-full justify-center p-2  bg-[#030711]">
                 <label className="text-[#F9FAFB] text-center text-sm">Free shipping on orders over $100 | New arrivals daily</label>
             </div>
 
-            <div className="flex w-full justify-around border-b-1 border-b-[#E5E7EB] py-4 px-5">
+            <div className="flex w-full justify-around border-b-1 border-b-[#E5E7EB] py-4 md:px-5">
+                <img src={hamburger} alt="" className="md:hidden"/>
+
                 <div className="flex gap-2 items-center">
                     <img src={logo} alt=""/>
-                    <label className="font-bold text-xl">STYLE</label>
+                    <label className="font-bold text-base md:text-xl">STYLE</label>
                 </div>
 
                 <div className="gap-8 hidden lg:flex">
@@ -23,7 +26,7 @@ export default function Header(){
                     <button className="cursor-pointer text-sm">Sale</button>
                 </div>
 
-                <div className="flex gap-2 lg:hidden">
+                <div className="flex gap-2 md:hidden">
                     <button className="flex justify-center items-center h-10 w-10">
                         <img src={lupa} alt="" className="cursor-pointer"/>
                     </button>
@@ -43,7 +46,7 @@ export default function Header(){
                     </button>
                 </div>
 
-                <div className="relative hidden lg:block">
+                <div className="relative hidden md:block">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <img src={lupa} className=""/>
                     </div>
@@ -51,7 +54,7 @@ export default function Header(){
                     <input type= "text" placeholder= "Search for products..." className="h-10 w-96 bg-[#F8F9FA] rounded-lg pl-10"></input>
                 </div>
 
-                <div className="hidden lg:flex lg:gap-2">
+                <div className="hidden md:flex md:gap-2">
                     <button className="flex justify-center items-center h-10 w-10">
                         <img src={favorito} alt="" className="cursor-pointer"/>
                     </button>
