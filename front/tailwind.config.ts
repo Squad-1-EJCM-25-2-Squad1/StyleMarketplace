@@ -6,5 +6,6 @@ export default {
         "./src/components/**/*.{js,jsx,ts,tsx}",
         "./src/styles/*.{js,jsx,ts,tsx}",
         "./src/app/**/*.{js,jsx,ts,tsx}",
+        "./src/pages/**/*.{js,jsx,ts,tsx}"
     ]
 } satisfies Config;
