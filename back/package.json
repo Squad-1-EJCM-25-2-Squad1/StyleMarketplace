@@ -6,7 +6,8 @@
     "dev": "ts-node-dev --respawn server.ts",
     "migrate": "npx prisma migrate dev --schema=src/models/schema.prisma",
     "generate": "npx prisma generate --schema=src/models/schema.prisma",
-    "studio": "npx prisma studio --schema=src/models/schema.prisma"
+    "studio": "npx prisma studio --schema=src/models/schema.prisma",
+    "seed": "npm exec prisma db seed"
   },
   "prisma": {
     "schema": "src/models/schema.prisma"
@@ -21,7 +22,9 @@
   },
   "devDependencies": {
     "@prisma/client": "^6.13.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
+    "@types/node": "^24.2.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
