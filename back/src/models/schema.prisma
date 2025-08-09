@@ -12,3 +12,67 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                  Int         @id @default(autoincrement())
+  // outros campos do usuário podem ser adicionados aqui
+  wishlist            Wishlist?   @relation("UserWishlist")
+  orders              Order[]     // Relação com pedidos
+}
+
+model Product {
+  id                  Int             @id @default(autoincrement())
+  name                String
+  description         String?
+  base_price          Decimal         @db.Decimal(10, 2)
+  is_active           Boolean         @default(true)
+  created_at          DateTime        @default(now())
+  wishlist_items      Wishlist_item[]
+  order_products      OrderProduct[] // Relação com OrderProduct
+}
+
+model Wishlist {
+  wishlist_id         Int             @id @default(autoincrement())
+  user_id             Int             @unique
+  user                User            @relation("UserWishlist", fields: [user_id], references: [id])
+  created_date        DateTime        @default(now())
+  items               Wishlist_item[]
+}
+
+model Wishlist_item {
+  wishlist_item_id    Int             @id @default(autoincrement())
+  wishlist_id         Int
+  product_id          Int
+  added_date          DateTime        @default(now())
+  
+  wishlist            Wishlist        @relation(fields: [wishlist_id], references: [wishlist_id])
+  product             Product         @relation(fields: [product_id], references: [id])
+  
+  @@unique([wishlist_id, product_id])
+}
+
+model Order {
+  id                  Int             @id @default(autoincrement())
+  user_id             Int
+  status              String          @default("pending") // pending, shipped, delivered, cancelled
+  date_ordered        DateTime        @default(now())
+  total_cost          Decimal         @db.Decimal(10, 2)
+  address             String
+  
+  user                User            @relation(fields: [user_id], references: [id])
+  order_products      OrderProduct[] 
+}
+
+model OrderProduct {
+  id                  Int             @id @default(autoincrement())
+  order_id            Int
+  product_id          Int
+  quantity            Int             @default(1)
+  unit_price          Decimal         @db.Decimal(10, 2)
+  
+  order               Order           @relation(fields: [order_id], references: [id])
+  product             Product         @relation(fields: [product_id], references: [id])
+  
+  @@unique([order_id, product_id])
+
+}
