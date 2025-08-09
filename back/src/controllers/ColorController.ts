@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient, Prisma } from "../generated/prisma";
 
 const prisma = new PrismaClient();
 
@@ -11,7 +11,7 @@ class ColorController {
 
             if (!name || !hexCode) {
                 // Retorna um erro 400 se name ou hexCode não estiverem presentes
-                return res.status(400).json({ message: 'Nome e hex code devem ser incluidos.' });
+                return res.status(400).json({ message: 'Nome e hex code devem ser incluídos.' });
             }
 
             // Criação da nova cor 
@@ -43,7 +43,7 @@ class ColorController {
 
             if (!foundColor) {
                 // Retorna um erro 404 se color não estiver presente
-                return res.status(404).json({ message: "Cor nao encontrada." });
+                return res.status(404).json({ message: "Cor não encontrada." });
             }
 
             // Retorna que a cor foi encontrada com sucesso
@@ -69,7 +69,7 @@ class ColorController {
 
             // Verificar se a cor foi encontrada
             if (!existingColor){
-                return res.status(404).json({ error: 'Cor nao encontrada.' });
+                return res.status(404).json({ message: 'Cor não encontrada.' });
             } 
 
             // Atualizar os dados da cor
@@ -104,7 +104,7 @@ class ColorController {
 
             // Verificar se a cor foi encontrada
             if (!existingColor){
-                return res.status(404).json({ error: 'Cor nao encontrada.' });
+                return res.status(404).json({ message: 'Cor não encontrada.' });
             } 
 
             // Deletar a cor
