@@ -84,11 +84,11 @@ export class WishlistController {
   // Adicionar item à wishlist
   public static async addItemToWishlist(req: Request, res: Response) {
     try {
-      const { wishlist_id, product_id } = req.body;
+      const { user_id, product_id } = req.body;
 
       // Verificar se a wishlist existe
       const wishlist = await prisma.wishlist.findUnique({
-        where: { wishlist_id: parseInt(wishlist_id) }
+        where: { wishlist_id: parseInt(user_id) }
       });
 
       if (!wishlist) {
@@ -108,7 +108,7 @@ export class WishlistController {
       const existingItem = await prisma.wishlist_item.findUnique({
         where: {
           wishlist_id_product_id: {
-            wishlist_id: parseInt(wishlist_id),
+            wishlist_id: parseInt(user_id),
             product_id: parseInt(product_id)
           }
         }
@@ -122,7 +122,7 @@ export class WishlistController {
       // Adicionar item à wishlist
       const wishlistItem = await prisma.wishlist_item.create({
         data: {
-          wishlist_id: parseInt(wishlist_id),
+          wishlist_id: parseInt(user_id),
           product_id: parseInt(product_id)
         },
         include: {
@@ -145,13 +145,13 @@ export class WishlistController {
   // Remover item da wishlist
   public static async removeItemFromWishlist(req: Request, res: Response) {
     try {
-      const { wishlist_id, product_id } = req.params;
+      const { user_id, product_id } = req.params;
 
       // Remover item da wishlist
       const deletedItem = await prisma.wishlist_item.delete({
         where: {
           wishlist_id_product_id: {
-            wishlist_id: parseInt(wishlist_id),
+            wishlist_id: parseInt(user_id),
             product_id: parseInt(product_id)
           }
         },
@@ -170,11 +170,11 @@ export class WishlistController {
   // Listar todos os itens de uma wishlist
   public static async getWishlistItems(req: Request, res: Response) {
     try {
-      const { wishlist_id } = req.params;
+      const { user_id } = req.params;
 
       // Buscar itens da wishlist
       const items = await prisma.wishlist_item.findMany({
-        where: { wishlist_id: parseInt(wishlist_id) },
+        where: { wishlist_id: parseInt(user_id) },
         include: {
           product: true
         }
@@ -190,16 +190,16 @@ export class WishlistController {
   // Deletar wishlist completa
   public static async deleteWishlist(req: Request, res: Response) {
     try {
-      const { wishlist_id } = req.params;
+      const { user_id } = req.params;
 
       // Primeiro deletar todos os itens da wishlist
       await prisma.wishlist_item.deleteMany({
-        where: { wishlist_id: parseInt(wishlist_id) }
+        where: { wishlist_id: parseInt(user_id) }
       });
 
       // Depois deletar a wishlist
       await prisma.wishlist.delete({
-        where: { wishlist_id: parseInt(wishlist_id) }
+        where: { wishlist_id: parseInt(user_id) }
       });
 
       res.json({ message: 'Wishlist deletada com sucesso' });
@@ -212,13 +212,13 @@ export class WishlistController {
   // Verificar se um produto está na wishlist
   public static async checkProductInWishlist(req: Request, res: Response) {
     try {
-      const { wishlist_id, product_id } = req.params;
+      const { user_id, product_id } = req.params;
 
       // Verificar se o item existe na wishlist
       const item = await prisma.wishlist_item.findUnique({
         where: {
           wishlist_id_product_id: {
-            wishlist_id: parseInt(wishlist_id),
+            wishlist_id: parseInt(user_id),
             product_id: parseInt(product_id)
           }
         }

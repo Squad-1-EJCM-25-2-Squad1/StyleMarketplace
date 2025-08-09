@@ -32,8 +32,7 @@ model Product {
 }
 
 model Wishlist {
-  wishlist_id         Int             @id @default(autoincrement())
-  user_id             Int             @unique
+  user_id             Int             @id
   user                User            @relation("UserWishlist", fields: [user_id], references: [id])
   created_date        DateTime        @default(now())
   items               Wishlist_item[]
@@ -45,7 +44,7 @@ model Wishlist_item {
   product_id          Int
   added_date          DateTime        @default(now())
   
-  wishlist            Wishlist        @relation(fields: [wishlist_id], references: [wishlist_id])
+  wishlist            Wishlist        @relation(fields: [wishlist_id], references: [user_id])
   product             Product         @relation(fields: [product_id], references: [id])
   
   @@unique([wishlist_id, product_id])
