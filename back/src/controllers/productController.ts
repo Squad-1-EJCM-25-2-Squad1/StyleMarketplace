@@ -140,4 +140,31 @@ export class ProductController {
             res.status(500).json({ message: error.message });
         }
     }
+
+
+    public static async uploadImage(req: Request, res: Response) {
+        try {
+            const { produtoId, isMain } = req.params;
+
+            if (!req.file) {
+            return res.status(400).json({ message: "Nenhum arquivo enviado." });
+            }
+
+            const imagePath = `/uploads/photos/${req.file.filename}`;
+
+            // Criar nova imagem associada ao produto
+            const newImage = await prisma.productImage.create({
+            data: {
+                imageUrl: imagePath,
+                productId: produtoId,
+                isMain: false
+            }
+            });
+
+            res.status(200).json({ message: "Successfully image adding", image: newImage });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
 }
