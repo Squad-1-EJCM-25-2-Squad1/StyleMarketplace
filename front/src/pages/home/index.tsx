@@ -9,7 +9,6 @@ import CategoryCards from "../../components/categoryCards";
 import ProductCards from "../../components/productCards";
 import blackArrow from "../../assets/home/blackArrow.svg"
 import Footer from "../../components/footer";
-import ProfileOptions from "../../components/profileOptions";
 
 export default function Home(){
     return(

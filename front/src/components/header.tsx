@@ -4,6 +4,7 @@ import favorito from "../assets/home/favorito.svg"
 import carrinho from "../assets/home/carrinho.svg"
 import hamburger from "../assets/home/hamburger.svg"
 import { useState } from "react"
+import ProfileOptions from "./profileOptions"
 
 export default function Header(){
     const [mobileSearch, setMobileSearch] = useState<boolean>(false);
@@ -17,12 +18,12 @@ export default function Header(){
             </div>
 
             <div className="flex w-full justify-around border-b-1 border-b-[#E5E7EB] py-4 md:px-5">
-                <img src={hamburger} alt="" className="md:hidden"/>
+                <img src={hamburger} alt="" className="md:hidden cursor-pointer"/>
 
-                <div className="flex gap-2 items-center">
+                <button className="flex gap-2 items-center font-bold text-base md:text-xl cursor-pointer">
                     <img src={logo} alt=""/>
-                    <label className="font-bold text-base md:text-xl">STYLE</label>
-                </div>
+                    STYLE
+                </button>
 
                 <ul className="gap-8 hidden lg:flex">
                     <button className="cursor-pointer text-sm">New In</button>
@@ -31,28 +32,38 @@ export default function Header(){
                     <button className="cursor-pointer text-sm">Sale</button>
                 </ul>
 
-                <div className="flex gap-2 md:hidden">
+                <div className="relative flex gap-2 md:hidden">
                     {
                         !mobileSearch && input === "" &&(
                             <>
-                            <button onClick={() => setMobileSearch(!mobileSearch)}className="flex justify-center items-center h-10 w-10">
-                                <img src={lupa} alt="" className="cursor-pointer"/>
-                            </button>
+                                <button onClick={() => setMobileSearch(!mobileSearch)} className="flex justify-center items-center h-10 w-10">
+                                    <img src={lupa} alt="" className="cursor-pointer"/>
+                                </button>
 
-                            <button className="flex justify-center items-center h-10 w-10">
-                                <img src={favorito} alt="" className="cursor-pointer"/>
-                            </button>
+                                <button className="flex justify-center items-center h-10 w-10">
+                                    <img src={favorito} alt="" className="cursor-pointer"/>
+                                </button>
 
-                            <button onClick={() => setProfileTab(!profileTab)}>
-                                <div className="flex justify-center items-center w-10 h-10 rounded-full font-semibold bg-[#F3F4F6] cursor-pointer">
-                                    JD
-                                </div>
-                            </button>
+                                <button onClick={() => setProfileTab(!profileTab)}>
+                                    <div className="flex justify-center items-center w-10 h-10 rounded-full font-semibold bg-[#F3F4F6] cursor-pointer">
+                                        JD
+                                    </div>
+                                </button>
 
-                            <button className="flex justify-center items-center h-10 w-10">
-                                <img src={carrinho} alt="" className="cursor-pointer"/>
-                            </button>
+                                <button className="flex justify-center items-center h-10 w-10">
+                                    <img src={carrinho} alt="" className="cursor-pointer"/>
+                                </button>
+                                
+                                
+                                {profileTab && (
+                                    <ProfileOptions
+                                        name= "John Doe"
+                                        email= "johndoe@example.com"
+                                    />
+                                )}
+                                    
                             </>
+
                         )
                     }
 
@@ -63,7 +74,11 @@ export default function Header(){
                                     <img src={lupa} className=""/>
                                 </div>
 
-                                <input type= "text" value={input} onChange={(e) => setInput(e.target.value)} onFocus={() => setMobileSearch(true)} onBlur={() => setMobileSearch(false)} placeholder= "Search for products..." className="h-10 w-60 bg-[#F8F9FA] rounded-lg pl-10"></input>
+                                <input type= "text" value={input} onChange={(e) => setInput(e.target.value)} onFocus={() => setMobileSearch(true)} onBlur={() => {
+                                    setMobileSearch(false);
+                                    setProfileTab(false)
+                                }}
+                                    placeholder= "Search for products..." className="h-10 w-60 bg-[#F8F9FA] rounded-lg pl-10"></input>
                             </div>
                         )
                     }
@@ -74,7 +89,7 @@ export default function Header(){
                         <img src={lupa} className=""/>
                     </div>
 
-                    <input type= "text" placeholder= "Search for products..." className="h-10 w-96 bg-[#F8F9FA] rounded-lg pl-10"></input>
+                    <input type= "text" value={input} onChange={(e) => setInput(e.target.value)} placeholder= "Search for products..." className="h-10 w-96 bg-[#F8F9FA] rounded-lg pl-10"></input>
                 </div>
 
                 <div className="hidden md:flex md:gap-2">
@@ -82,7 +97,7 @@ export default function Header(){
                         <img src={favorito} alt="" className="cursor-pointer"/>
                     </button>
 
-                    <button>
+                    <button onClick={() => setProfileTab(!profileTab)}>
                         <div className="flex justify-center items-center w-10 h-10 rounded-full font-semibold bg-[#F3F4F6] cursor-pointer">
                             JD
                         </div>
@@ -91,6 +106,13 @@ export default function Header(){
                     <button className="flex justify-center items-center h-10 w-10">
                         <img src={carrinho} alt="" className="cursor-pointer"/>
                     </button>
+
+                    {profileTab && (
+                        <ProfileOptions
+                            name= "John Doe"
+                            email= "johndoe@example.com"
+                        />
+                    )}
                 </div>
             </div>
         </header>
