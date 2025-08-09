@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -17,13 +18,13 @@ model Color {
   id       String @id @default(uuid())
   name     String
   hexCode  String
-  variants Variant[]
+  //variants Variant[]
 }
 
 model Size {
   id       String    @id @default(uuid())
   label    String    
-  variants Variant[]
+  //variants Variant[]
 }
 
 model Offer {
@@ -37,8 +38,8 @@ model Offer {
   endsAt        DateTime  
   isActive      Boolean   
 
-  productId     String    
-  product       Product   @relation(fields: [productId], references: [id]) 
+  //productId     String    
+  //product       Product   @relation(fields: [productId], references: [id]) 
 
-  cartItems     CartItem[]
+  //cartItems     CartItem[]
 }
