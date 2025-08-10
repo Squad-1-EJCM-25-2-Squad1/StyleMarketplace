@@ -6,7 +6,7 @@ import auth from "../config/auth";
 const prisma = new PrismaClient();
 
 export class UserController {
-	public static async Signup(request: Request, response: Response) {
+	public static async signup(request: Request, response: Response) {
 		try {
 			const { firstName, lastName, imageSrc, gender, email, birthDate, phone, password } = request.body;
 			const { hash, salt } = auth.generatePassword(password);
@@ -74,11 +74,88 @@ export class UserController {
                 return response.status(400).json({message:"Senha incorreta"})
             }
 
+			return response.status(201).json({message:"Login completo"})
+
         } catch (error) {
             return response.status(500).json()
 
-        }
-        
-        
+        }   
     }
+
+	public static async readUser(request: Request, response: Response){
+		try {
+			const { userId } = request.params;
+			const foundUser = await prisma.user.findUnique({
+				where: {
+					id: userId,
+				},
+				include: {
+					wishlist: true,
+					cart: true,
+					orders: true,
+					reviews: true,
+				}
+			});
+			response.status(201).json(foundUser);
+
+		} catch (error: any) {
+			response.status(500).json({ message: error.message});
+
+		}
+	}
+
+	public static async deleteUser(request: Request, response: Response) {
+		try {
+			const { userId } = request.params;
+
+			const deletedUser = await prisma.user.delete({
+				where: {
+					id: userId,
+				},
+			});
+			response.status(200).json(deletedUser);
+		} catch (error: any) {
+			response.status(500).json({ message: error.message });
+		}
+	}
+
+	public static async updateUser(request: Request, response: Response){
+		try {
+			const { userId } = request.params;
+			const { firstName, lastName, imageSrc, gender, email, birthDate, phone} = request.body;
+
+			const createInput: Prisma.UserUpdateInput = {
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+                birthDate: birthDate,
+                phone: phone,
+				imageSrc: imageSrc,
+				gender: gender
+			};
+
+			const updatedUser = await prisma.user.update({
+				data: createInput,
+				where: {
+					id: userId,
+				}
+			});
+
+			response.status(200).json(updatedUser);
+
+		} catch (error: any) {
+			response.status(500).json({ message: error.message });
+		}
+	}
+
+
+	public static async readAllUsers(request: Request, response: Response) {
+		try {
+			const users = await prisma.user.findMany({});
+
+			response.status(200).json(users);
+		} catch (error: any) {
+			response.status(500).json({ message: error.message });
+		}
+	}
 }

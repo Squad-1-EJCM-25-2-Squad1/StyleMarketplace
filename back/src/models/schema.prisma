@@ -22,17 +22,17 @@ model User {
   gender    String   //deve ser um de "Masculino, feminino ou Outro" fazer o enum depois
   imageSrc  String     
   createdAt DateTime @default(now())
-  birthDate DateTime
+  birthDate String
 
   //parte do password
   hash String
   salt String
 
   //Fazer ser obrigatorio a criação de tanto um cart quanto uma wishlist, mesmo que vazios
-  //na criação do usuário
+  //na criação do usuário, pode ser alterado depois para uma aproximação mais simples
   cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId     String   @unique
-  wishlist   Wishlist  @relation(fields: [wishlistId], references: [id])
+  wishlist   Wishlist  @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
   wishlistId String   @unique
 
   //relaçoes com outras models

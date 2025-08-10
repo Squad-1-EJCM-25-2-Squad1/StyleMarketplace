@@ -6,7 +6,8 @@
     "dev": "ts-node-dev --respawn server.ts",
     "migrate": "npx prisma migrate dev --schema=src/models/schema.prisma",
     "generate": "npx prisma generate --schema=src/models/schema.prisma",
-    "studio": "npx prisma studio --schema=src/models/schema.prisma"
+    "studio": "npx prisma studio --schema=src/models/schema.prisma",
+    "keys": "npx ts-node src/config/generateRSAKeyPair.ts"
   },
   "prisma": {
     "schema": "src/models/schema.prisma"
