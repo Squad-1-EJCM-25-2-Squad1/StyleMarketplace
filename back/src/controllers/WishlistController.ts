@@ -88,7 +88,7 @@ export class WishlistController {
 
       // Verificar se a wishlist existe
       const wishlist = await prisma.wishlist.findUnique({
-        where: { wishlist_id: parseInt(user_id) }
+        where: { user_id: parseInt(user_id) }
       });
 
       if (!wishlist) {
@@ -199,7 +199,7 @@ export class WishlistController {
 
       // Depois deletar a wishlist
       await prisma.wishlist.delete({
-        where: { wishlist_id: parseInt(user_id) }
+        where: { user_id: parseInt(user_id) }
       });
 
       res.json({ message: 'Wishlist deletada com sucesso' });

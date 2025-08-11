@@ -8,13 +8,13 @@ const router = Router();
 // Rotas de Wishlist
 router.post('/wishlist', WishlistController.createWishlist);
 router.get('/wishlist/user/:user_id', WishlistController.getWishlistByUser);
-router.delete('/wishlist/:wishlist_id', WishlistController.deleteWishlist);
+router.delete('/wishlist/:user_id', WishlistController.deleteWishlist);
 
 // Rotas de Itens da Wishlist
 router.post('/wishlist/items', WishlistController.addItemToWishlist);
-router.get('/wishlist/:wishlist_id/items', WishlistController.getWishlistItems);
-router.delete('/wishlist/:wishlist_id/items/:product_id', WishlistController.removeItemFromWishlist);
-router.get('/wishlist/:wishlist_id/items/:product_id/check', WishlistController.checkProductInWishlist);
+router.get('/wishlist/:user_id/items', WishlistController.getWishlistItems);
+router.delete('/wishlist/:user_id/items/:product_id', WishlistController.removeItemFromWishlist);
+router.get('/wishlist/:user_id/items/:product_id/check', WishlistController.checkProductInWishlist);
 
 // Rotas de Order
 router.post('/orders', OrderController.createOrder);
