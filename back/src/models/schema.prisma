@@ -95,3 +95,49 @@ model Review{
   ownerId String
   owner    User   @relation(fields: [ownerId], references: [id])
 }
+
+model Variant {
+  id        String    @id @default(uuid())
+  price     Float     
+  stock     Int       
+  isActive  Boolean   
+
+  //productId String    
+  //product   Product   @relation(fields: [productId], references: [id])
+
+  colorId   String      
+  color     Color     @relation(fields: [colorId], references: [id])
+
+  sizeId    String    
+  size      Size      @relation(fields: [sizeId], references: [id])
+}
+
+model Color {
+  id       String @id @default(uuid())
+  name     String
+  hexCode  String
+  variants Variant[]
+}
+
+model Size {
+  id       String    @id @default(uuid())
+  label    String    
+  variants Variant[]
+}
+
+model Offer {
+  id            String    @id @default(uuid())
+  createdAt     DateTime  @default(now())
+  name          String    
+  description   String?   
+  discountType  String    
+  discountValue Float     
+  startsAt      DateTime  
+  endsAt        DateTime  
+  isActive      Boolean   
+
+  //productId     String    
+  //product       Product   @relation(fields: [productId], references: [id]) 
+
+  //cartItems     CartItem[]
+}
