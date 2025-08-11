@@ -1,6 +1,6 @@
-import * as crypto from "crypto";
-import * as fs from "fs";
-import * as path from "path";
+import crypto from "crypto";
+import fs from "fs";
+import path from "path";
 
 (() => {
   const keyPair = crypto.generateKeyPairSync("rsa", {
