@@ -1,9 +1,17 @@
 import { Router } from 'express';
+import VariantController from '../controllers/VariantController'; 
 import ColorController from '../controllers/ColorController';
 import SizeController from '../controllers/SizeController';
 import OfferController from '../controllers/OfferController';
 
 const router = Router();
+
+// --- Rotas de Variantes ---
+router.post('/variant', VariantController.createVariant);
+router.get('/variant/:id', VariantController.readVariant);
+router.get('/variant', VariantController.readAllVariants); 
+router.put('/variant/:id', VariantController.updateVariant);
+router.delete('/variant/:id', VariantController.deleteVariant);
 
 // --- Rotas de Cores ---
 router.post('/color', ColorController.createColor);

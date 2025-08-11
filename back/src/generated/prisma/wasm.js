@@ -120,6 +120,15 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.VariantScalarFieldEnum = {
+  id: 'id',
+  price: 'price',
+  stock: 'stock',
+  isActive: 'isActive',
+  colorId: 'colorId',
+  sizeId: 'sizeId'
+};
+
 exports.Prisma.ColorScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -160,6 +169,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  Variant: 'Variant',
   Color: 'Color',
   Size: 'Size',
   Offer: 'Offer'

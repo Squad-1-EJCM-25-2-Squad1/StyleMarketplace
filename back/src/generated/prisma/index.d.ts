@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Variant
+ * 
+ */
+export type Variant = $Result.DefaultSelection<Prisma.$VariantPayload>
+/**
  * Model Color
  * 
  */
@@ -36,8 +41,8 @@ export type Offer = $Result.DefaultSelection<Prisma.$OfferPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Colors
- * const colors = await prisma.color.findMany()
+ * // Fetch zero or more Variants
+ * const variants = await prisma.variant.findMany()
  * ```
  *
  *
@@ -57,8 +62,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Colors
-   * const colors = await prisma.color.findMany()
+   * // Fetch zero or more Variants
+   * const variants = await prisma.variant.findMany()
    * ```
    *
    *
@@ -155,6 +160,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.variant`: Exposes CRUD operations for the **Variant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Variants
+    * const variants = await prisma.variant.findMany()
+    * ```
+    */
+  get variant(): Prisma.VariantDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.color`: Exposes CRUD operations for the **Color** model.
     * Example usage:
     * ```ts
@@ -623,6 +638,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Variant: 'Variant',
     Color: 'Color',
     Size: 'Size',
     Offer: 'Offer'
@@ -644,10 +660,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "color" | "size" | "offer"
+      modelProps: "variant" | "color" | "size" | "offer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Variant: {
+        payload: Prisma.$VariantPayload<ExtArgs>
+        fields: Prisma.VariantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VariantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VariantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>
+          }
+          findFirst: {
+            args: Prisma.VariantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VariantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>
+          }
+          findMany: {
+            args: Prisma.VariantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>[]
+          }
+          create: {
+            args: Prisma.VariantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>
+          }
+          createMany: {
+            args: Prisma.VariantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VariantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>[]
+          }
+          delete: {
+            args: Prisma.VariantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>
+          }
+          update: {
+            args: Prisma.VariantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>
+          }
+          deleteMany: {
+            args: Prisma.VariantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VariantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VariantUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>[]
+          }
+          upsert: {
+            args: Prisma.VariantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VariantPayload>
+          }
+          aggregate: {
+            args: Prisma.VariantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVariant>
+          }
+          groupBy: {
+            args: Prisma.VariantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VariantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VariantCountArgs<ExtArgs>
+            result: $Utils.Optional<VariantCountAggregateOutputType> | number
+          }
+        }
+      }
       Color: {
         payload: Prisma.$ColorPayload<ExtArgs>
         fields: Prisma.ColorFieldRefs
@@ -962,6 +1052,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    variant?: VariantOmit
     color?: ColorOmit
     size?: SizeOmit
     offer?: OfferOmit
@@ -1059,10 +1150,1188 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type ColorCountOutputType
+   */
+
+  export type ColorCountOutputType = {
+    variants: number
+  }
+
+  export type ColorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    variants?: boolean | ColorCountOutputTypeCountVariantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColorCountOutputType
+     */
+    select?: ColorCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeCountVariantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VariantWhereInput
+  }
+
+
+  /**
+   * Count Type SizeCountOutputType
+   */
+
+  export type SizeCountOutputType = {
+    variants: number
+  }
+
+  export type SizeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    variants?: boolean | SizeCountOutputTypeCountVariantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SizeCountOutputType without action
+   */
+  export type SizeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SizeCountOutputType
+     */
+    select?: SizeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SizeCountOutputType without action
+   */
+  export type SizeCountOutputTypeCountVariantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VariantWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model Variant
+   */
+
+  export type AggregateVariant = {
+    _count: VariantCountAggregateOutputType | null
+    _avg: VariantAvgAggregateOutputType | null
+    _sum: VariantSumAggregateOutputType | null
+    _min: VariantMinAggregateOutputType | null
+    _max: VariantMaxAggregateOutputType | null
+  }
+
+  export type VariantAvgAggregateOutputType = {
+    price: number | null
+    stock: number | null
+  }
+
+  export type VariantSumAggregateOutputType = {
+    price: number | null
+    stock: number | null
+  }
+
+  export type VariantMinAggregateOutputType = {
+    id: string | null
+    price: number | null
+    stock: number | null
+    isActive: boolean | null
+    colorId: string | null
+    sizeId: string | null
+  }
+
+  export type VariantMaxAggregateOutputType = {
+    id: string | null
+    price: number | null
+    stock: number | null
+    isActive: boolean | null
+    colorId: string | null
+    sizeId: string | null
+  }
+
+  export type VariantCountAggregateOutputType = {
+    id: number
+    price: number
+    stock: number
+    isActive: number
+    colorId: number
+    sizeId: number
+    _all: number
+  }
+
+
+  export type VariantAvgAggregateInputType = {
+    price?: true
+    stock?: true
+  }
+
+  export type VariantSumAggregateInputType = {
+    price?: true
+    stock?: true
+  }
+
+  export type VariantMinAggregateInputType = {
+    id?: true
+    price?: true
+    stock?: true
+    isActive?: true
+    colorId?: true
+    sizeId?: true
+  }
+
+  export type VariantMaxAggregateInputType = {
+    id?: true
+    price?: true
+    stock?: true
+    isActive?: true
+    colorId?: true
+    sizeId?: true
+  }
+
+  export type VariantCountAggregateInputType = {
+    id?: true
+    price?: true
+    stock?: true
+    isActive?: true
+    colorId?: true
+    sizeId?: true
+    _all?: true
+  }
+
+  export type VariantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Variant to aggregate.
+     */
+    where?: VariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Variants to fetch.
+     */
+    orderBy?: VariantOrderByWithRelationInput | VariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Variants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Variants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Variants
+    **/
+    _count?: true | VariantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VariantAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VariantSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VariantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VariantMaxAggregateInputType
+  }
+
+  export type GetVariantAggregateType<T extends VariantAggregateArgs> = {
+        [P in keyof T & keyof AggregateVariant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVariant[P]>
+      : GetScalarType<T[P], AggregateVariant[P]>
+  }
+
+
+
+
+  export type VariantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VariantWhereInput
+    orderBy?: VariantOrderByWithAggregationInput | VariantOrderByWithAggregationInput[]
+    by: VariantScalarFieldEnum[] | VariantScalarFieldEnum
+    having?: VariantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VariantCountAggregateInputType | true
+    _avg?: VariantAvgAggregateInputType
+    _sum?: VariantSumAggregateInputType
+    _min?: VariantMinAggregateInputType
+    _max?: VariantMaxAggregateInputType
+  }
+
+  export type VariantGroupByOutputType = {
+    id: string
+    price: number
+    stock: number
+    isActive: boolean
+    colorId: string
+    sizeId: string
+    _count: VariantCountAggregateOutputType | null
+    _avg: VariantAvgAggregateOutputType | null
+    _sum: VariantSumAggregateOutputType | null
+    _min: VariantMinAggregateOutputType | null
+    _max: VariantMaxAggregateOutputType | null
+  }
+
+  type GetVariantGroupByPayload<T extends VariantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VariantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VariantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VariantGroupByOutputType[P]>
+            : GetScalarType<T[P], VariantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VariantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    price?: boolean
+    stock?: boolean
+    isActive?: boolean
+    colorId?: boolean
+    sizeId?: boolean
+    color?: boolean | ColorDefaultArgs<ExtArgs>
+    size?: boolean | SizeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["variant"]>
+
+  export type VariantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    price?: boolean
+    stock?: boolean
+    isActive?: boolean
+    colorId?: boolean
+    sizeId?: boolean
+    color?: boolean | ColorDefaultArgs<ExtArgs>
+    size?: boolean | SizeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["variant"]>
+
+  export type VariantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    price?: boolean
+    stock?: boolean
+    isActive?: boolean
+    colorId?: boolean
+    sizeId?: boolean
+    color?: boolean | ColorDefaultArgs<ExtArgs>
+    size?: boolean | SizeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["variant"]>
+
+  export type VariantSelectScalar = {
+    id?: boolean
+    price?: boolean
+    stock?: boolean
+    isActive?: boolean
+    colorId?: boolean
+    sizeId?: boolean
+  }
+
+  export type VariantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "price" | "stock" | "isActive" | "colorId" | "sizeId", ExtArgs["result"]["variant"]>
+  export type VariantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    color?: boolean | ColorDefaultArgs<ExtArgs>
+    size?: boolean | SizeDefaultArgs<ExtArgs>
+  }
+  export type VariantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    color?: boolean | ColorDefaultArgs<ExtArgs>
+    size?: boolean | SizeDefaultArgs<ExtArgs>
+  }
+  export type VariantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    color?: boolean | ColorDefaultArgs<ExtArgs>
+    size?: boolean | SizeDefaultArgs<ExtArgs>
+  }
+
+  export type $VariantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Variant"
+    objects: {
+      color: Prisma.$ColorPayload<ExtArgs>
+      size: Prisma.$SizePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      price: number
+      stock: number
+      isActive: boolean
+      colorId: string
+      sizeId: string
+    }, ExtArgs["result"]["variant"]>
+    composites: {}
+  }
+
+  type VariantGetPayload<S extends boolean | null | undefined | VariantDefaultArgs> = $Result.GetResult<Prisma.$VariantPayload, S>
+
+  type VariantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VariantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VariantCountAggregateInputType | true
+    }
+
+  export interface VariantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Variant'], meta: { name: 'Variant' } }
+    /**
+     * Find zero or one Variant that matches the filter.
+     * @param {VariantFindUniqueArgs} args - Arguments to find a Variant
+     * @example
+     * // Get one Variant
+     * const variant = await prisma.variant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VariantFindUniqueArgs>(args: SelectSubset<T, VariantFindUniqueArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Variant that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VariantFindUniqueOrThrowArgs} args - Arguments to find a Variant
+     * @example
+     * // Get one Variant
+     * const variant = await prisma.variant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VariantFindUniqueOrThrowArgs>(args: SelectSubset<T, VariantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Variant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantFindFirstArgs} args - Arguments to find a Variant
+     * @example
+     * // Get one Variant
+     * const variant = await prisma.variant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VariantFindFirstArgs>(args?: SelectSubset<T, VariantFindFirstArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Variant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantFindFirstOrThrowArgs} args - Arguments to find a Variant
+     * @example
+     * // Get one Variant
+     * const variant = await prisma.variant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VariantFindFirstOrThrowArgs>(args?: SelectSubset<T, VariantFindFirstOrThrowArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Variants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Variants
+     * const variants = await prisma.variant.findMany()
+     * 
+     * // Get first 10 Variants
+     * const variants = await prisma.variant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const variantWithIdOnly = await prisma.variant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VariantFindManyArgs>(args?: SelectSubset<T, VariantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Variant.
+     * @param {VariantCreateArgs} args - Arguments to create a Variant.
+     * @example
+     * // Create one Variant
+     * const Variant = await prisma.variant.create({
+     *   data: {
+     *     // ... data to create a Variant
+     *   }
+     * })
+     * 
+     */
+    create<T extends VariantCreateArgs>(args: SelectSubset<T, VariantCreateArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Variants.
+     * @param {VariantCreateManyArgs} args - Arguments to create many Variants.
+     * @example
+     * // Create many Variants
+     * const variant = await prisma.variant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VariantCreateManyArgs>(args?: SelectSubset<T, VariantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Variants and returns the data saved in the database.
+     * @param {VariantCreateManyAndReturnArgs} args - Arguments to create many Variants.
+     * @example
+     * // Create many Variants
+     * const variant = await prisma.variant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Variants and only return the `id`
+     * const variantWithIdOnly = await prisma.variant.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VariantCreateManyAndReturnArgs>(args?: SelectSubset<T, VariantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Variant.
+     * @param {VariantDeleteArgs} args - Arguments to delete one Variant.
+     * @example
+     * // Delete one Variant
+     * const Variant = await prisma.variant.delete({
+     *   where: {
+     *     // ... filter to delete one Variant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VariantDeleteArgs>(args: SelectSubset<T, VariantDeleteArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Variant.
+     * @param {VariantUpdateArgs} args - Arguments to update one Variant.
+     * @example
+     * // Update one Variant
+     * const variant = await prisma.variant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VariantUpdateArgs>(args: SelectSubset<T, VariantUpdateArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Variants.
+     * @param {VariantDeleteManyArgs} args - Arguments to filter Variants to delete.
+     * @example
+     * // Delete a few Variants
+     * const { count } = await prisma.variant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VariantDeleteManyArgs>(args?: SelectSubset<T, VariantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Variants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Variants
+     * const variant = await prisma.variant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VariantUpdateManyArgs>(args: SelectSubset<T, VariantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Variants and returns the data updated in the database.
+     * @param {VariantUpdateManyAndReturnArgs} args - Arguments to update many Variants.
+     * @example
+     * // Update many Variants
+     * const variant = await prisma.variant.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Variants and only return the `id`
+     * const variantWithIdOnly = await prisma.variant.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VariantUpdateManyAndReturnArgs>(args: SelectSubset<T, VariantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Variant.
+     * @param {VariantUpsertArgs} args - Arguments to update or create a Variant.
+     * @example
+     * // Update or create a Variant
+     * const variant = await prisma.variant.upsert({
+     *   create: {
+     *     // ... data to create a Variant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Variant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VariantUpsertArgs>(args: SelectSubset<T, VariantUpsertArgs<ExtArgs>>): Prisma__VariantClient<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Variants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantCountArgs} args - Arguments to filter Variants to count.
+     * @example
+     * // Count the number of Variants
+     * const count = await prisma.variant.count({
+     *   where: {
+     *     // ... the filter for the Variants we want to count
+     *   }
+     * })
+    **/
+    count<T extends VariantCountArgs>(
+      args?: Subset<T, VariantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VariantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Variant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VariantAggregateArgs>(args: Subset<T, VariantAggregateArgs>): Prisma.PrismaPromise<GetVariantAggregateType<T>>
+
+    /**
+     * Group by Variant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VariantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VariantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VariantGroupByArgs['orderBy'] }
+        : { orderBy?: VariantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VariantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVariantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Variant model
+   */
+  readonly fields: VariantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Variant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VariantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    color<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    size<T extends SizeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SizeDefaultArgs<ExtArgs>>): Prisma__SizeClient<$Result.GetResult<Prisma.$SizePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Variant model
+   */
+  interface VariantFieldRefs {
+    readonly id: FieldRef<"Variant", 'String'>
+    readonly price: FieldRef<"Variant", 'Float'>
+    readonly stock: FieldRef<"Variant", 'Int'>
+    readonly isActive: FieldRef<"Variant", 'Boolean'>
+    readonly colorId: FieldRef<"Variant", 'String'>
+    readonly sizeId: FieldRef<"Variant", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Variant findUnique
+   */
+  export type VariantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * Filter, which Variant to fetch.
+     */
+    where: VariantWhereUniqueInput
+  }
+
+  /**
+   * Variant findUniqueOrThrow
+   */
+  export type VariantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * Filter, which Variant to fetch.
+     */
+    where: VariantWhereUniqueInput
+  }
+
+  /**
+   * Variant findFirst
+   */
+  export type VariantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * Filter, which Variant to fetch.
+     */
+    where?: VariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Variants to fetch.
+     */
+    orderBy?: VariantOrderByWithRelationInput | VariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Variants.
+     */
+    cursor?: VariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Variants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Variants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Variants.
+     */
+    distinct?: VariantScalarFieldEnum | VariantScalarFieldEnum[]
+  }
+
+  /**
+   * Variant findFirstOrThrow
+   */
+  export type VariantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * Filter, which Variant to fetch.
+     */
+    where?: VariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Variants to fetch.
+     */
+    orderBy?: VariantOrderByWithRelationInput | VariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Variants.
+     */
+    cursor?: VariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Variants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Variants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Variants.
+     */
+    distinct?: VariantScalarFieldEnum | VariantScalarFieldEnum[]
+  }
+
+  /**
+   * Variant findMany
+   */
+  export type VariantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * Filter, which Variants to fetch.
+     */
+    where?: VariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Variants to fetch.
+     */
+    orderBy?: VariantOrderByWithRelationInput | VariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Variants.
+     */
+    cursor?: VariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Variants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Variants.
+     */
+    skip?: number
+    distinct?: VariantScalarFieldEnum | VariantScalarFieldEnum[]
+  }
+
+  /**
+   * Variant create
+   */
+  export type VariantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Variant.
+     */
+    data: XOR<VariantCreateInput, VariantUncheckedCreateInput>
+  }
+
+  /**
+   * Variant createMany
+   */
+  export type VariantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Variants.
+     */
+    data: VariantCreateManyInput | VariantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Variant createManyAndReturn
+   */
+  export type VariantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * The data used to create many Variants.
+     */
+    data: VariantCreateManyInput | VariantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Variant update
+   */
+  export type VariantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Variant.
+     */
+    data: XOR<VariantUpdateInput, VariantUncheckedUpdateInput>
+    /**
+     * Choose, which Variant to update.
+     */
+    where: VariantWhereUniqueInput
+  }
+
+  /**
+   * Variant updateMany
+   */
+  export type VariantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Variants.
+     */
+    data: XOR<VariantUpdateManyMutationInput, VariantUncheckedUpdateManyInput>
+    /**
+     * Filter which Variants to update
+     */
+    where?: VariantWhereInput
+    /**
+     * Limit how many Variants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Variant updateManyAndReturn
+   */
+  export type VariantUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * The data used to update Variants.
+     */
+    data: XOR<VariantUpdateManyMutationInput, VariantUncheckedUpdateManyInput>
+    /**
+     * Filter which Variants to update
+     */
+    where?: VariantWhereInput
+    /**
+     * Limit how many Variants to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Variant upsert
+   */
+  export type VariantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Variant to update in case it exists.
+     */
+    where: VariantWhereUniqueInput
+    /**
+     * In case the Variant found by the `where` argument doesn't exist, create a new Variant with this data.
+     */
+    create: XOR<VariantCreateInput, VariantUncheckedCreateInput>
+    /**
+     * In case the Variant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VariantUpdateInput, VariantUncheckedUpdateInput>
+  }
+
+  /**
+   * Variant delete
+   */
+  export type VariantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    /**
+     * Filter which Variant to delete.
+     */
+    where: VariantWhereUniqueInput
+  }
+
+  /**
+   * Variant deleteMany
+   */
+  export type VariantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Variants to delete
+     */
+    where?: VariantWhereInput
+    /**
+     * Limit how many Variants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Variant without action
+   */
+  export type VariantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model Color
@@ -1212,6 +2481,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     hexCode?: boolean
+    variants?: boolean | Color$variantsArgs<ExtArgs>
+    _count?: boolean | ColorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["color"]>
 
   export type ColorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1233,10 +2504,18 @@ export namespace Prisma {
   }
 
   export type ColorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "hexCode", ExtArgs["result"]["color"]>
+  export type ColorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    variants?: boolean | Color$variantsArgs<ExtArgs>
+    _count?: boolean | ColorCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ColorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ColorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $ColorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Color"
-    objects: {}
+    objects: {
+      variants: Prisma.$VariantPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
@@ -1635,6 +2914,7 @@ export namespace Prisma {
    */
   export interface Prisma__ColorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    variants<T extends Color$variantsArgs<ExtArgs> = {}>(args?: Subset<T, Color$variantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1684,6 +2964,10 @@ export namespace Prisma {
      */
     omit?: ColorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
      * Filter, which Color to fetch.
      */
     where: ColorWhereUniqueInput
@@ -1702,6 +2986,10 @@ export namespace Prisma {
      */
     omit?: ColorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
      * Filter, which Color to fetch.
      */
     where: ColorWhereUniqueInput
@@ -1719,6 +3007,10 @@ export namespace Prisma {
      * Omit specific fields from the Color
      */
     omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
     /**
      * Filter, which Color to fetch.
      */
@@ -1768,6 +3060,10 @@ export namespace Prisma {
      */
     omit?: ColorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
      * Filter, which Color to fetch.
      */
     where?: ColorWhereInput
@@ -1816,6 +3112,10 @@ export namespace Prisma {
      */
     omit?: ColorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
      * Filter, which Colors to fetch.
      */
     where?: ColorWhereInput
@@ -1858,6 +3158,10 @@ export namespace Prisma {
      * Omit specific fields from the Color
      */
     omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
     /**
      * The data needed to create a Color.
      */
@@ -1906,6 +3210,10 @@ export namespace Prisma {
      * Omit specific fields from the Color
      */
     omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
     /**
      * The data needed to update a Color.
      */
@@ -1973,6 +3281,10 @@ export namespace Prisma {
      */
     omit?: ColorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
      * The filter to search for the Color to update in case it exists.
      */
     where: ColorWhereUniqueInput
@@ -1999,6 +3311,10 @@ export namespace Prisma {
      */
     omit?: ColorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
      * Filter which Color to delete.
      */
     where: ColorWhereUniqueInput
@@ -2019,6 +3335,30 @@ export namespace Prisma {
   }
 
   /**
+   * Color.variants
+   */
+  export type Color$variantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    where?: VariantWhereInput
+    orderBy?: VariantOrderByWithRelationInput | VariantOrderByWithRelationInput[]
+    cursor?: VariantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VariantScalarFieldEnum | VariantScalarFieldEnum[]
+  }
+
+  /**
    * Color without action
    */
   export type ColorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2030,6 +3370,10 @@ export namespace Prisma {
      * Omit specific fields from the Color
      */
     omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
   }
 
 
@@ -2173,6 +3517,8 @@ export namespace Prisma {
   export type SizeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     label?: boolean
+    variants?: boolean | Size$variantsArgs<ExtArgs>
+    _count?: boolean | SizeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["size"]>
 
   export type SizeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2191,10 +3537,18 @@ export namespace Prisma {
   }
 
   export type SizeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label", ExtArgs["result"]["size"]>
+  export type SizeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    variants?: boolean | Size$variantsArgs<ExtArgs>
+    _count?: boolean | SizeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SizeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SizeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $SizePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Size"
-    objects: {}
+    objects: {
+      variants: Prisma.$VariantPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       label: string
@@ -2592,6 +3946,7 @@ export namespace Prisma {
    */
   export interface Prisma__SizeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    variants<T extends Size$variantsArgs<ExtArgs> = {}>(args?: Subset<T, Size$variantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2640,6 +3995,10 @@ export namespace Prisma {
      */
     omit?: SizeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    /**
      * Filter, which Size to fetch.
      */
     where: SizeWhereUniqueInput
@@ -2658,6 +4017,10 @@ export namespace Prisma {
      */
     omit?: SizeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    /**
      * Filter, which Size to fetch.
      */
     where: SizeWhereUniqueInput
@@ -2675,6 +4038,10 @@ export namespace Prisma {
      * Omit specific fields from the Size
      */
     omit?: SizeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
     /**
      * Filter, which Size to fetch.
      */
@@ -2724,6 +4091,10 @@ export namespace Prisma {
      */
     omit?: SizeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    /**
      * Filter, which Size to fetch.
      */
     where?: SizeWhereInput
@@ -2772,6 +4143,10 @@ export namespace Prisma {
      */
     omit?: SizeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    /**
      * Filter, which Sizes to fetch.
      */
     where?: SizeWhereInput
@@ -2814,6 +4189,10 @@ export namespace Prisma {
      * Omit specific fields from the Size
      */
     omit?: SizeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
     /**
      * The data needed to create a Size.
      */
@@ -2862,6 +4241,10 @@ export namespace Prisma {
      * Omit specific fields from the Size
      */
     omit?: SizeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
     /**
      * The data needed to update a Size.
      */
@@ -2929,6 +4312,10 @@ export namespace Prisma {
      */
     omit?: SizeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    /**
      * The filter to search for the Size to update in case it exists.
      */
     where: SizeWhereUniqueInput
@@ -2955,6 +4342,10 @@ export namespace Prisma {
      */
     omit?: SizeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    /**
      * Filter which Size to delete.
      */
     where: SizeWhereUniqueInput
@@ -2975,6 +4366,30 @@ export namespace Prisma {
   }
 
   /**
+   * Size.variants
+   */
+  export type Size$variantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Variant
+     */
+    select?: VariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Variant
+     */
+    omit?: VariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VariantInclude<ExtArgs> | null
+    where?: VariantWhereInput
+    orderBy?: VariantOrderByWithRelationInput | VariantOrderByWithRelationInput[]
+    cursor?: VariantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VariantScalarFieldEnum | VariantScalarFieldEnum[]
+  }
+
+  /**
    * Size without action
    */
   export type SizeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2986,6 +4401,10 @@ export namespace Prisma {
      * Omit specific fields from the Size
      */
     omit?: SizeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
   }
 
 
@@ -4084,6 +5503,18 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const VariantScalarFieldEnum: {
+    id: 'id',
+    price: 'price',
+    stock: 'stock',
+    isActive: 'isActive',
+    colorId: 'colorId',
+    sizeId: 'sizeId'
+  };
+
+  export type VariantScalarFieldEnum = (typeof VariantScalarFieldEnum)[keyof typeof VariantScalarFieldEnum]
+
+
   export const ColorScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -4160,20 +5591,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4184,13 +5601,6 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4206,10 +5616,96 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
   /**
    * Deep Input Types
    */
 
+
+  export type VariantWhereInput = {
+    AND?: VariantWhereInput | VariantWhereInput[]
+    OR?: VariantWhereInput[]
+    NOT?: VariantWhereInput | VariantWhereInput[]
+    id?: StringFilter<"Variant"> | string
+    price?: FloatFilter<"Variant"> | number
+    stock?: IntFilter<"Variant"> | number
+    isActive?: BoolFilter<"Variant"> | boolean
+    colorId?: StringFilter<"Variant"> | string
+    sizeId?: StringFilter<"Variant"> | string
+    color?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    size?: XOR<SizeScalarRelationFilter, SizeWhereInput>
+  }
+
+  export type VariantOrderByWithRelationInput = {
+    id?: SortOrder
+    price?: SortOrder
+    stock?: SortOrder
+    isActive?: SortOrder
+    colorId?: SortOrder
+    sizeId?: SortOrder
+    color?: ColorOrderByWithRelationInput
+    size?: SizeOrderByWithRelationInput
+  }
+
+  export type VariantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VariantWhereInput | VariantWhereInput[]
+    OR?: VariantWhereInput[]
+    NOT?: VariantWhereInput | VariantWhereInput[]
+    price?: FloatFilter<"Variant"> | number
+    stock?: IntFilter<"Variant"> | number
+    isActive?: BoolFilter<"Variant"> | boolean
+    colorId?: StringFilter<"Variant"> | string
+    sizeId?: StringFilter<"Variant"> | string
+    color?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    size?: XOR<SizeScalarRelationFilter, SizeWhereInput>
+  }, "id">
+
+  export type VariantOrderByWithAggregationInput = {
+    id?: SortOrder
+    price?: SortOrder
+    stock?: SortOrder
+    isActive?: SortOrder
+    colorId?: SortOrder
+    sizeId?: SortOrder
+    _count?: VariantCountOrderByAggregateInput
+    _avg?: VariantAvgOrderByAggregateInput
+    _max?: VariantMaxOrderByAggregateInput
+    _min?: VariantMinOrderByAggregateInput
+    _sum?: VariantSumOrderByAggregateInput
+  }
+
+  export type VariantScalarWhereWithAggregatesInput = {
+    AND?: VariantScalarWhereWithAggregatesInput | VariantScalarWhereWithAggregatesInput[]
+    OR?: VariantScalarWhereWithAggregatesInput[]
+    NOT?: VariantScalarWhereWithAggregatesInput | VariantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Variant"> | string
+    price?: FloatWithAggregatesFilter<"Variant"> | number
+    stock?: IntWithAggregatesFilter<"Variant"> | number
+    isActive?: BoolWithAggregatesFilter<"Variant"> | boolean
+    colorId?: StringWithAggregatesFilter<"Variant"> | string
+    sizeId?: StringWithAggregatesFilter<"Variant"> | string
+  }
 
   export type ColorWhereInput = {
     AND?: ColorWhereInput | ColorWhereInput[]
@@ -4218,12 +5714,14 @@ export namespace Prisma {
     id?: StringFilter<"Color"> | string
     name?: StringFilter<"Color"> | string
     hexCode?: StringFilter<"Color"> | string
+    variants?: VariantListRelationFilter
   }
 
   export type ColorOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     hexCode?: SortOrder
+    variants?: VariantOrderByRelationAggregateInput
   }
 
   export type ColorWhereUniqueInput = Prisma.AtLeast<{
@@ -4233,6 +5731,7 @@ export namespace Prisma {
     NOT?: ColorWhereInput | ColorWhereInput[]
     name?: StringFilter<"Color"> | string
     hexCode?: StringFilter<"Color"> | string
+    variants?: VariantListRelationFilter
   }, "id">
 
   export type ColorOrderByWithAggregationInput = {
@@ -4259,11 +5758,13 @@ export namespace Prisma {
     NOT?: SizeWhereInput | SizeWhereInput[]
     id?: StringFilter<"Size"> | string
     label?: StringFilter<"Size"> | string
+    variants?: VariantListRelationFilter
   }
 
   export type SizeOrderByWithRelationInput = {
     id?: SortOrder
     label?: SortOrder
+    variants?: VariantOrderByRelationAggregateInput
   }
 
   export type SizeWhereUniqueInput = Prisma.AtLeast<{
@@ -4272,6 +5773,7 @@ export namespace Prisma {
     OR?: SizeWhereInput[]
     NOT?: SizeWhereInput | SizeWhereInput[]
     label?: StringFilter<"Size"> | string
+    variants?: VariantListRelationFilter
   }, "id">
 
   export type SizeOrderByWithAggregationInput = {
@@ -4364,28 +5866,93 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"Offer"> | boolean
   }
 
+  export type VariantCreateInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    color: ColorCreateNestedOneWithoutVariantsInput
+    size: SizeCreateNestedOneWithoutVariantsInput
+  }
+
+  export type VariantUncheckedCreateInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    colorId: string
+    sizeId: string
+  }
+
+  export type VariantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    color?: ColorUpdateOneRequiredWithoutVariantsNestedInput
+    size?: SizeUpdateOneRequiredWithoutVariantsNestedInput
+  }
+
+  export type VariantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    colorId?: StringFieldUpdateOperationsInput | string
+    sizeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VariantCreateManyInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    colorId: string
+    sizeId: string
+  }
+
+  export type VariantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type VariantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    colorId?: StringFieldUpdateOperationsInput | string
+    sizeId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ColorCreateInput = {
     id?: string
     name: string
     hexCode: string
+    variants?: VariantCreateNestedManyWithoutColorInput
   }
 
   export type ColorUncheckedCreateInput = {
     id?: string
     name: string
     hexCode: string
+    variants?: VariantUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ColorUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hexCode?: StringFieldUpdateOperationsInput | string
+    variants?: VariantUpdateManyWithoutColorNestedInput
   }
 
   export type ColorUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hexCode?: StringFieldUpdateOperationsInput | string
+    variants?: VariantUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ColorCreateManyInput = {
@@ -4409,21 +5976,25 @@ export namespace Prisma {
   export type SizeCreateInput = {
     id?: string
     label: string
+    variants?: VariantCreateNestedManyWithoutSizeInput
   }
 
   export type SizeUncheckedCreateInput = {
     id?: string
     label: string
+    variants?: VariantUncheckedCreateNestedManyWithoutSizeInput
   }
 
   export type SizeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    variants?: VariantUpdateManyWithoutSizeNestedInput
   }
 
   export type SizeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    variants?: VariantUncheckedUpdateManyWithoutSizeNestedInput
   }
 
   export type SizeCreateManyInput = {
@@ -4540,22 +6111,78 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type ColorCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    hexCode?: SortOrder
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type ColorMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    hexCode?: SortOrder
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type ColorMinOrderByAggregateInput = {
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type ColorScalarRelationFilter = {
+    is?: ColorWhereInput
+    isNot?: ColorWhereInput
+  }
+
+  export type SizeScalarRelationFilter = {
+    is?: SizeWhereInput
+    isNot?: SizeWhereInput
+  }
+
+  export type VariantCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    hexCode?: SortOrder
+    price?: SortOrder
+    stock?: SortOrder
+    isActive?: SortOrder
+    colorId?: SortOrder
+    sizeId?: SortOrder
+  }
+
+  export type VariantAvgOrderByAggregateInput = {
+    price?: SortOrder
+    stock?: SortOrder
+  }
+
+  export type VariantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    stock?: SortOrder
+    isActive?: SortOrder
+    colorId?: SortOrder
+    sizeId?: SortOrder
+  }
+
+  export type VariantMinOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    stock?: SortOrder
+    isActive?: SortOrder
+    colorId?: SortOrder
+    sizeId?: SortOrder
+  }
+
+  export type VariantSumOrderByAggregateInput = {
+    price?: SortOrder
+    stock?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4574,6 +6201,74 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type VariantListRelationFilter = {
+    every?: VariantWhereInput
+    some?: VariantWhereInput
+    none?: VariantWhereInput
+  }
+
+  export type VariantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ColorCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    hexCode?: SortOrder
+  }
+
+  export type ColorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    hexCode?: SortOrder
+  }
+
+  export type ColorMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    hexCode?: SortOrder
   }
 
   export type SizeCountOrderByAggregateInput = {
@@ -4615,22 +6310,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type SortOrderInput = {
@@ -4714,40 +6393,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type ColorCreateNestedOneWithoutVariantsInput = {
+    create?: XOR<ColorCreateWithoutVariantsInput, ColorUncheckedCreateWithoutVariantsInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutVariantsInput
+    connect?: ColorWhereUniqueInput
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type SizeCreateNestedOneWithoutVariantsInput = {
+    create?: XOR<SizeCreateWithoutVariantsInput, SizeUncheckedCreateWithoutVariantsInput>
+    connectOrCreate?: SizeCreateOrConnectWithoutVariantsInput
+    connect?: SizeWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -4758,8 +6417,124 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type ColorUpdateOneRequiredWithoutVariantsNestedInput = {
+    create?: XOR<ColorCreateWithoutVariantsInput, ColorUncheckedCreateWithoutVariantsInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutVariantsInput
+    upsert?: ColorUpsertWithoutVariantsInput
+    connect?: ColorWhereUniqueInput
+    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutVariantsInput, ColorUpdateWithoutVariantsInput>, ColorUncheckedUpdateWithoutVariantsInput>
+  }
+
+  export type SizeUpdateOneRequiredWithoutVariantsNestedInput = {
+    create?: XOR<SizeCreateWithoutVariantsInput, SizeUncheckedCreateWithoutVariantsInput>
+    connectOrCreate?: SizeCreateOrConnectWithoutVariantsInput
+    upsert?: SizeUpsertWithoutVariantsInput
+    connect?: SizeWhereUniqueInput
+    update?: XOR<XOR<SizeUpdateToOneWithWhereWithoutVariantsInput, SizeUpdateWithoutVariantsInput>, SizeUncheckedUpdateWithoutVariantsInput>
+  }
+
+  export type VariantCreateNestedManyWithoutColorInput = {
+    create?: XOR<VariantCreateWithoutColorInput, VariantUncheckedCreateWithoutColorInput> | VariantCreateWithoutColorInput[] | VariantUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutColorInput | VariantCreateOrConnectWithoutColorInput[]
+    createMany?: VariantCreateManyColorInputEnvelope
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+  }
+
+  export type VariantUncheckedCreateNestedManyWithoutColorInput = {
+    create?: XOR<VariantCreateWithoutColorInput, VariantUncheckedCreateWithoutColorInput> | VariantCreateWithoutColorInput[] | VariantUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutColorInput | VariantCreateOrConnectWithoutColorInput[]
+    createMany?: VariantCreateManyColorInputEnvelope
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+  }
+
+  export type VariantUpdateManyWithoutColorNestedInput = {
+    create?: XOR<VariantCreateWithoutColorInput, VariantUncheckedCreateWithoutColorInput> | VariantCreateWithoutColorInput[] | VariantUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutColorInput | VariantCreateOrConnectWithoutColorInput[]
+    upsert?: VariantUpsertWithWhereUniqueWithoutColorInput | VariantUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: VariantCreateManyColorInputEnvelope
+    set?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    disconnect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    delete?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    update?: VariantUpdateWithWhereUniqueWithoutColorInput | VariantUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: VariantUpdateManyWithWhereWithoutColorInput | VariantUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: VariantScalarWhereInput | VariantScalarWhereInput[]
+  }
+
+  export type VariantUncheckedUpdateManyWithoutColorNestedInput = {
+    create?: XOR<VariantCreateWithoutColorInput, VariantUncheckedCreateWithoutColorInput> | VariantCreateWithoutColorInput[] | VariantUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutColorInput | VariantCreateOrConnectWithoutColorInput[]
+    upsert?: VariantUpsertWithWhereUniqueWithoutColorInput | VariantUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: VariantCreateManyColorInputEnvelope
+    set?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    disconnect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    delete?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    update?: VariantUpdateWithWhereUniqueWithoutColorInput | VariantUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: VariantUpdateManyWithWhereWithoutColorInput | VariantUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: VariantScalarWhereInput | VariantScalarWhereInput[]
+  }
+
+  export type VariantCreateNestedManyWithoutSizeInput = {
+    create?: XOR<VariantCreateWithoutSizeInput, VariantUncheckedCreateWithoutSizeInput> | VariantCreateWithoutSizeInput[] | VariantUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutSizeInput | VariantCreateOrConnectWithoutSizeInput[]
+    createMany?: VariantCreateManySizeInputEnvelope
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+  }
+
+  export type VariantUncheckedCreateNestedManyWithoutSizeInput = {
+    create?: XOR<VariantCreateWithoutSizeInput, VariantUncheckedCreateWithoutSizeInput> | VariantCreateWithoutSizeInput[] | VariantUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutSizeInput | VariantCreateOrConnectWithoutSizeInput[]
+    createMany?: VariantCreateManySizeInputEnvelope
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+  }
+
+  export type VariantUpdateManyWithoutSizeNestedInput = {
+    create?: XOR<VariantCreateWithoutSizeInput, VariantUncheckedCreateWithoutSizeInput> | VariantCreateWithoutSizeInput[] | VariantUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutSizeInput | VariantCreateOrConnectWithoutSizeInput[]
+    upsert?: VariantUpsertWithWhereUniqueWithoutSizeInput | VariantUpsertWithWhereUniqueWithoutSizeInput[]
+    createMany?: VariantCreateManySizeInputEnvelope
+    set?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    disconnect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    delete?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    update?: VariantUpdateWithWhereUniqueWithoutSizeInput | VariantUpdateWithWhereUniqueWithoutSizeInput[]
+    updateMany?: VariantUpdateManyWithWhereWithoutSizeInput | VariantUpdateManyWithWhereWithoutSizeInput[]
+    deleteMany?: VariantScalarWhereInput | VariantScalarWhereInput[]
+  }
+
+  export type VariantUncheckedUpdateManyWithoutSizeNestedInput = {
+    create?: XOR<VariantCreateWithoutSizeInput, VariantUncheckedCreateWithoutSizeInput> | VariantCreateWithoutSizeInput[] | VariantUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: VariantCreateOrConnectWithoutSizeInput | VariantCreateOrConnectWithoutSizeInput[]
+    upsert?: VariantUpsertWithWhereUniqueWithoutSizeInput | VariantUpsertWithWhereUniqueWithoutSizeInput[]
+    createMany?: VariantCreateManySizeInputEnvelope
+    set?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    disconnect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    delete?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    connect?: VariantWhereUniqueInput | VariantWhereUniqueInput[]
+    update?: VariantUpdateWithWhereUniqueWithoutSizeInput | VariantUpdateWithWhereUniqueWithoutSizeInput[]
+    updateMany?: VariantUpdateManyWithWhereWithoutSizeInput | VariantUpdateManyWithWhereWithoutSizeInput[]
+    deleteMany?: VariantScalarWhereInput | VariantScalarWhereInput[]
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -4774,6 +6549,33 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4793,7 +6595,23 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -4801,7 +6619,20 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -4827,22 +6658,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -4887,28 +6702,240 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type ColorCreateWithoutVariantsInput = {
+    id?: string
+    name: string
+    hexCode: string
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type ColorUncheckedCreateWithoutVariantsInput = {
+    id?: string
+    name: string
+    hexCode: string
+  }
+
+  export type ColorCreateOrConnectWithoutVariantsInput = {
+    where: ColorWhereUniqueInput
+    create: XOR<ColorCreateWithoutVariantsInput, ColorUncheckedCreateWithoutVariantsInput>
+  }
+
+  export type SizeCreateWithoutVariantsInput = {
+    id?: string
+    label: string
+  }
+
+  export type SizeUncheckedCreateWithoutVariantsInput = {
+    id?: string
+    label: string
+  }
+
+  export type SizeCreateOrConnectWithoutVariantsInput = {
+    where: SizeWhereUniqueInput
+    create: XOR<SizeCreateWithoutVariantsInput, SizeUncheckedCreateWithoutVariantsInput>
+  }
+
+  export type ColorUpsertWithoutVariantsInput = {
+    update: XOR<ColorUpdateWithoutVariantsInput, ColorUncheckedUpdateWithoutVariantsInput>
+    create: XOR<ColorCreateWithoutVariantsInput, ColorUncheckedCreateWithoutVariantsInput>
+    where?: ColorWhereInput
+  }
+
+  export type ColorUpdateToOneWithWhereWithoutVariantsInput = {
+    where?: ColorWhereInput
+    data: XOR<ColorUpdateWithoutVariantsInput, ColorUncheckedUpdateWithoutVariantsInput>
+  }
+
+  export type ColorUpdateWithoutVariantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hexCode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ColorUncheckedUpdateWithoutVariantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hexCode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SizeUpsertWithoutVariantsInput = {
+    update: XOR<SizeUpdateWithoutVariantsInput, SizeUncheckedUpdateWithoutVariantsInput>
+    create: XOR<SizeCreateWithoutVariantsInput, SizeUncheckedCreateWithoutVariantsInput>
+    where?: SizeWhereInput
+  }
+
+  export type SizeUpdateToOneWithWhereWithoutVariantsInput = {
+    where?: SizeWhereInput
+    data: XOR<SizeUpdateWithoutVariantsInput, SizeUncheckedUpdateWithoutVariantsInput>
+  }
+
+  export type SizeUpdateWithoutVariantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SizeUncheckedUpdateWithoutVariantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VariantCreateWithoutColorInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    size: SizeCreateNestedOneWithoutVariantsInput
+  }
+
+  export type VariantUncheckedCreateWithoutColorInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    sizeId: string
+  }
+
+  export type VariantCreateOrConnectWithoutColorInput = {
+    where: VariantWhereUniqueInput
+    create: XOR<VariantCreateWithoutColorInput, VariantUncheckedCreateWithoutColorInput>
+  }
+
+  export type VariantCreateManyColorInputEnvelope = {
+    data: VariantCreateManyColorInput | VariantCreateManyColorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VariantUpsertWithWhereUniqueWithoutColorInput = {
+    where: VariantWhereUniqueInput
+    update: XOR<VariantUpdateWithoutColorInput, VariantUncheckedUpdateWithoutColorInput>
+    create: XOR<VariantCreateWithoutColorInput, VariantUncheckedCreateWithoutColorInput>
+  }
+
+  export type VariantUpdateWithWhereUniqueWithoutColorInput = {
+    where: VariantWhereUniqueInput
+    data: XOR<VariantUpdateWithoutColorInput, VariantUncheckedUpdateWithoutColorInput>
+  }
+
+  export type VariantUpdateManyWithWhereWithoutColorInput = {
+    where: VariantScalarWhereInput
+    data: XOR<VariantUpdateManyMutationInput, VariantUncheckedUpdateManyWithoutColorInput>
+  }
+
+  export type VariantScalarWhereInput = {
+    AND?: VariantScalarWhereInput | VariantScalarWhereInput[]
+    OR?: VariantScalarWhereInput[]
+    NOT?: VariantScalarWhereInput | VariantScalarWhereInput[]
+    id?: StringFilter<"Variant"> | string
+    price?: FloatFilter<"Variant"> | number
+    stock?: IntFilter<"Variant"> | number
+    isActive?: BoolFilter<"Variant"> | boolean
+    colorId?: StringFilter<"Variant"> | string
+    sizeId?: StringFilter<"Variant"> | string
+  }
+
+  export type VariantCreateWithoutSizeInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    color: ColorCreateNestedOneWithoutVariantsInput
+  }
+
+  export type VariantUncheckedCreateWithoutSizeInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    colorId: string
+  }
+
+  export type VariantCreateOrConnectWithoutSizeInput = {
+    where: VariantWhereUniqueInput
+    create: XOR<VariantCreateWithoutSizeInput, VariantUncheckedCreateWithoutSizeInput>
+  }
+
+  export type VariantCreateManySizeInputEnvelope = {
+    data: VariantCreateManySizeInput | VariantCreateManySizeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VariantUpsertWithWhereUniqueWithoutSizeInput = {
+    where: VariantWhereUniqueInput
+    update: XOR<VariantUpdateWithoutSizeInput, VariantUncheckedUpdateWithoutSizeInput>
+    create: XOR<VariantCreateWithoutSizeInput, VariantUncheckedCreateWithoutSizeInput>
+  }
+
+  export type VariantUpdateWithWhereUniqueWithoutSizeInput = {
+    where: VariantWhereUniqueInput
+    data: XOR<VariantUpdateWithoutSizeInput, VariantUncheckedUpdateWithoutSizeInput>
+  }
+
+  export type VariantUpdateManyWithWhereWithoutSizeInput = {
+    where: VariantScalarWhereInput
+    data: XOR<VariantUpdateManyMutationInput, VariantUncheckedUpdateManyWithoutSizeInput>
+  }
+
+  export type VariantCreateManyColorInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    sizeId: string
+  }
+
+  export type VariantUpdateWithoutColorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    size?: SizeUpdateOneRequiredWithoutVariantsNestedInput
+  }
+
+  export type VariantUncheckedUpdateWithoutColorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    sizeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VariantUncheckedUpdateManyWithoutColorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    sizeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VariantCreateManySizeInput = {
+    id?: string
+    price: number
+    stock: number
+    isActive: boolean
+    colorId: string
+  }
+
+  export type VariantUpdateWithoutSizeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    color?: ColorUpdateOneRequiredWithoutVariantsNestedInput
+  }
+
+  export type VariantUncheckedUpdateWithoutSizeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    colorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VariantUncheckedUpdateManyWithoutSizeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    colorId?: StringFieldUpdateOperationsInput | string
   }
 
 

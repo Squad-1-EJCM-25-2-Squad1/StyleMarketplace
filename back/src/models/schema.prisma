@@ -14,17 +14,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Variant {
+  id        String    @id @default(uuid())
+  price     Float     
+  stock     Int       
+  isActive  Boolean   
+
+  //productId String    
+  //product   Product   @relation(fields: [productId], references: [id])
+
+  colorId   String      
+  color     Color     @relation(fields: [colorId], references: [id])
+
+  sizeId    String    
+  size      Size      @relation(fields: [sizeId], references: [id])
+}
+
 model Color {
   id       String @id @default(uuid())
   name     String
   hexCode  String
-  //variants Variant[]
+  variants Variant[]
 }
 
 model Size {
   id       String    @id @default(uuid())
   label    String    
-  //variants Variant[]
+  variants Variant[]
 }
 
 model Offer {
