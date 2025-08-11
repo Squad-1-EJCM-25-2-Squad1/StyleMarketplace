@@ -52,6 +52,18 @@ class SizeController {
         }
     }
 
+    public async readAllSizes(req: Request, res: Response) {
+        try {
+            // Encontrar todos os tamanhos
+            const foundSizes = await prisma.offer.findMany();
+
+            // Retorna que todos os tamanhos foram encontrados com sucesso
+            res.status(200).json(foundSizes);
+        } catch (error: any) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
+
     public async updateSize(req: Request, res: Response) {
         try {
             // Pegar o id do tamanho

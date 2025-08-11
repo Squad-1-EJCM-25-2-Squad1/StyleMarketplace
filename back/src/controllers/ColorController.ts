@@ -53,6 +53,18 @@ class ColorController {
         }
     }
 
+    public async readAllColors(req: Request, res: Response) {
+        try {
+            // Encontrar todas as cores
+            const foundColors = await prisma.offer.findMany();
+    
+            // Retorna que todas as cores foram encontradas com sucesso
+            res.status(200).json(foundColors);
+        } catch (error: any) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
+
     public async updateColor(req: Request, res: Response) {
         try {
             // Pegar o id da cor
