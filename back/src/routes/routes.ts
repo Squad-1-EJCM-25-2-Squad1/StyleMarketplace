@@ -1,7 +1,20 @@
-import {Router} from "express";
-import {UserController}  from '../controllers/UserController';
+import { Router } from 'express';
+import { ProductController } from '../controllers/productController';
+import { photoUpload } from '../config/uploader';
 
-const router = Router()
+const router = Router();
+
+// ======= Product
+
+router.post('/', ProductController.create);
+router.get('/', ProductController.readAll);
+router.get('/:productId', ProductController.readProduct);
+router.put('/:productId', ProductController.update);
+router.delete('/:productId', ProductController.deleteProduct);
+
+router.post('/:produtoId/image', photoUpload.single('image'), ProductController.uploadImage);
+
+// ======= User
 
 router.post('/signup', UserController.signup);
 router.post('/login', UserController.login);
