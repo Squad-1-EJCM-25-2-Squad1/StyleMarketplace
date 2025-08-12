@@ -6,7 +6,9 @@ import CheckBox from "../../components/checkBox";
 import sizes from "../../data/sales/sizesData";
 import grid from "../../assets/sales/grid.svg";
 import list from "../../assets/sales/list.svg";
-
+import SaleCard from "../../components/saleCard";
+import saleProducts from "../../data/sales/saleProductsData";
+import noImage from "../../assets/home/noImage.png"
 
 export default function Sales(){
     return(
@@ -131,7 +133,7 @@ export default function Sales(){
                                 </div>
                             </div>
 
-                            <div className="flex flex-col w-full gap-3">
+                            <div className="flex flex-col w-full gap-6">
                                 <div className="flex flex-col lg:flex-row justify-between">
                                     <div className="flex flex-col">
                                         <label className="text-gray-950 text-2xl font-bold">Sale Items</label>
@@ -156,8 +158,20 @@ export default function Sales(){
                                     </div>
                                 </div>
 
-                                <div>
-                                    
+                                <div className="flex flex-wrap justify-center gap-8">
+                                    {saleProducts.map((product, index) => (
+                                        <SaleCard
+                                            key={index}
+                                            infoTag={product.infoTag}
+                                            title={product.title}
+                                            image= {noImage}
+                                            categoryTag={product.categoryTag}
+                                            rating={product.rating}
+                                            numOfReviews={product.numOfReviews}
+                                            price={product.price}
+                                            oldPrice={product.oldPrice}
+                                        />
+                                    ))}
                                 </div>
                             </div>    
                         </div>       
