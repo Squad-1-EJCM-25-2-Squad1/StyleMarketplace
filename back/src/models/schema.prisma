@@ -51,6 +51,8 @@ model Product {
 
   categoryId  Int
   category    Category  @relation(fields: [categoryId], references: [id])
+  
+  order_products      OrderProduct[] // Relação com OrderProduct
 
   images      ProductImage[]
 }
@@ -70,7 +72,6 @@ model Category {
   products Product[]
 }   
 
-////todos são placeholder pra não dar erro
 
 model Cart{
   id       String   @id @default(uuid())
@@ -78,16 +79,49 @@ model Cart{
 
 }
 
-model Wishlist{
-  id       String   @id @default(uuid())
-  owner    User?
-
+model Wishlist {
+  user_id             Int             @id
+  user                User            @relation("UserWishlist", fields: [user_id], references: [id])
+  created_date        DateTime        @default(now())
+  items               Wishlist_item[]
 }
 
-model Order{
-  id        String   @id @default(uuid())
-  ownerId String 
-  owner    User   @relation(fields: [ownerId], references: [id])
+model Wishlist_item {
+  wishlist_item_id    Int             @id @default(autoincrement())
+  wishlist_id         Int
+  product_id          Int
+  added_date          DateTime        @default(now())
+  
+  wishlist            Wishlist        @relation(fields: [wishlist_id], references: [user_id])
+  product             Product         @relation(fields: [product_id], references: [id])
+  
+  @@unique([wishlist_id, product_id])
+}
+
+model Order {
+  id                  Int             @id @default(autoincrement())
+  user_id             Int
+  status              String          @default("pending") // pending, shipped, delivered, cancelled
+  date_ordered        DateTime        @default(now())
+  total_cost          Decimal         @db.Decimal(10, 2)
+  address             String
+  
+  user                User            @relation(fields: [user_id], references: [id])
+  order_products      OrderProduct[] 
+}
+
+model OrderProduct {
+  id                  Int             @id @default(autoincrement())
+  order_id            Int
+  product_id          Int
+  quantity            Int             @default(1)
+  unit_price          Decimal         @db.Decimal(10, 2)
+  
+  order               Order           @relation(fields: [order_id], references: [id])
+  product             Product         @relation(fields: [product_id], references: [id])
+  
+  @@unique([order_id, product_id])
+
 }
 
 model Review{

@@ -5,6 +5,7 @@ node_modules/
 *.jpg
 .env
 .idea
+/models/migrations/
 
 src/models/migrations
 package-lock.json
