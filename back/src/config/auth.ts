@@ -3,9 +3,9 @@ import { Request } from "express";
 import * as fs from "fs";
 import jsonwebtoken from "jsonwebtoken";
 import * as path from "path";
-import passport from 'passport';
-import { Strategy } from 'passport-jwt';
-import { ExtractJwt } from 'passport-jwt';
+import passport from "passport";
+import { Strategy } from "passport-jwt";
+import { ExtractJwt } from "passport-jwt";
 
 const PRIV_KEY = fs.readFileSync(
   path.join(__dirname, "..", "..", "id_rsa_priv.pem"),
@@ -24,7 +24,6 @@ const generatePassword = (password: string) => {
   };
 };
 
-
 const generateJWT = (user: any) => {
   const sub = user.id;
   const payload = {
@@ -33,12 +32,11 @@ const generateJWT = (user: any) => {
   };
 
   const jwt = jsonwebtoken.sign(payload, PRIV_KEY, {
-    expiresIn: '10m',
+    expiresIn: "10m",
     algorithm: "RS256",
   });
   return jwt;
 };
-
 
 const checkPassword = (password: string, hash: string, salt: string) => {
   const hashFromRequest = crypto
@@ -46,7 +44,6 @@ const checkPassword = (password: string, hash: string, salt: string) => {
     .toString("hex");
   return hashFromRequest === hash;
 };
-
 
 const decodeJWT = (token: any) => {
   const payload = token.split(".")[1];

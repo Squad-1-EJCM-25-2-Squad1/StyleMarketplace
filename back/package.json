@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn server.ts",
+    "reset": "npx prisma generate && npx prisma db push && npx prisma migrate reset",
     "migrate": "npx prisma migrate dev --schema=src/models/schema.prisma",
     "generate": "npx prisma generate --schema=src/models/schema.prisma",
     "studio": "npx prisma studio --schema=src/models/schema.prisma",
