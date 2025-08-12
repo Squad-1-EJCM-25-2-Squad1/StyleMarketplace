@@ -8,6 +8,7 @@
     "generate": "npx prisma generate --schema=src/models/schema.prisma",
     "studio": "npx prisma studio --schema=src/models/schema.prisma",
     "seed": "npm exec prisma db seed"
+    "keys": "npx ts-node src/config/generateRSAKeyPair.ts"
   },
   "prisma": {
     "schema": "src/models/schema.prisma"
@@ -17,8 +18,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/passport-jwt": "^4.0.1",
     "dotenv": "^17.2.1",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
     "@prisma/client": "^6.13.0",

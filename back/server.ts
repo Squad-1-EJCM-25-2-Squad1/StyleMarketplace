@@ -11,7 +11,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/api', routes);
+app.use(routes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
