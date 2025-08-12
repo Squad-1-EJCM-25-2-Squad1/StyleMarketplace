@@ -1,13 +1,19 @@
 import Footer from "../../components/footer";
 import Header from "../../components/header";
 import SaleInfo from "../../components/saleInfo";
+import filter from "../../assets/sales/filter.svg"
+import CheckBox from "../../components/checkBox";
+import sizes from "../../data/sales/sizesData";
+import grid from "../../assets/sales/grid.svg";
+import list from "../../assets/sales/list.svg";
+
 
 export default function Sales(){
     return(
         <div className="flex flex-col min-h-screen">
                 <Header/>
 
-                <div className="flex flex-grow flex-col gap-6">
+                <div className="flex flex-grow flex-col">
                     <div className="flex flex-col py-20 px-4 gap-8 bg-gradient-to-l from-[#AF1F5F] to-[#BF3636]">
                         <div className="flex flex-col items-center gap-6">
                             <label className="text-white text-5xl font-bold text-center">MEGA SALE</label>
@@ -22,28 +28,140 @@ export default function Sales(){
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 lg:grid-cols-4 lg:px-32 2xl:px-69 gap-8">
-                        <SaleInfo
-                            title="70%"
-                            subtitle="Max Discount"
-                        />
+                    <div className="flex flex-col gap-4 p-4">
+                        <div className="grid grid-cols-2 p-4 lg:grid-cols-4 lg:px-32 2xl:px-69 gap-8">
+                            <SaleInfo
+                                title="70%"
+                                subtitle="Max Discount"
+                            />
 
-                        <SaleInfo
-                            title="500+"
-                            subtitle="Items on Sale"
-                        />
+                            <SaleInfo
+                                title="500+"
+                                subtitle="Items on Sale"
+                            />
 
-                        <SaleInfo
-                            title="48h"
-                            subtitle="Time Left"
-                        />
+                            <SaleInfo
+                                title="48h"
+                                subtitle="Time Left"
+                            />
 
-                        <SaleInfo
-                            title="Free"
-                            subtitle="Shipping"
-                        />
-                    </div>
+                            <SaleInfo
+                                title="Free"
+                                subtitle="Shipping"
+                            />
+                        </div>
 
+                        <div className="flex flex-col lg:flex-row gap-8 lg:px-32 2xl:px-69">
+                            <div className="lg:w-64 flex flex-col gap-8">
+                                <div className="flex gap-2 lg:hidden text-gray-950 text-base font-semibold">
+                                    <img src={filter} alt=""/>
+                                    Filters
+                                </div>
+                                
+                                <div className="flex flex-col gap-3 text-gray-950 text-lg font-semibold">
+                                    Category
+
+                                    <CheckBox
+                                        name="category"
+                                        value="Tops"
+                                    />
+                                    <CheckBox
+                                        name="category"
+                                        value="Bottoms"
+                                    />
+                                    <CheckBox
+                                        name="category"
+                                        value="Dresses"
+                                    />
+                                    <CheckBox
+                                        name="category"
+                                        value="Shoes"
+                                    />
+                                    <CheckBox
+                                        name="category"
+                                        value="Accessories"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-3 text-gray-950 text-lg font-semibold">
+                                    Size
+
+                                    <div className="grid grid-cols-3 gap-10">
+                                        <div className="flex flex-col gap-2">
+                                            {sizes.slice(0, 6).map((size, index) => (
+                                            <CheckBox
+                                                key={index}
+                                                name={size.name}
+                                                value={size.value}
+                                            />
+                                            ))}
+                                        </div>
+
+                                        <div className="flex flex-col gap-2">
+                                            {sizes.slice(6, 11).map((size, index) => (
+                                            <CheckBox
+                                                key={index}
+                                                name={size.name}
+                                                value={size.value}
+                                            />
+                                            ))}
+                                        </div>
+
+                                        <div className="flex flex-col gap-2">
+                                            {sizes.slice(11, 16).map((size, index) => (
+                                            <CheckBox
+                                                key={index}
+                                                name={size.name}
+                                                value={size.value}
+                                            />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="w-64 flex flex-col gap-3 text-gray-950 text-lg font-semibold">
+                                    Price Range
+
+                                    <select id="price-range" name="price-range" className="font-normal text-sm py-2 px-3 border-1 border-gray-300 rounded-xl text-gray-950 shadow-sm focus:outline-none cursor-pointer">
+                                        <option value="all">All Prices</option>
+                                        <option value="0-10">$0 - $10</option>
+                                        <option value="10-30">$10 - $30</option>
+                                        <option value="30-100">$30 - $100</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col w-full gap-3">
+                                <div className="flex flex-col lg:flex-row justify-between">
+                                    <div className="flex flex-col">
+                                        <label className="text-gray-950 text-2xl font-bold">Sale Items</label>
+
+                                        <label className="text-gray-500 text-base font-normal">6 products found</label>
+                                    </div>
+                                    
+                                    <div className="flex gap-4 items-center">
+                                        <select id="sale-items" name="sale-items" className="w-48 h-10 font-normal text-sm py-2 px-3 border-1 border-gray-300 rounded-xl text-gray-950 shadow-sm focus:outline-none cursor-pointer">
+                                            <option value="featured">Featured</option>
+                                        </select>
+                                        
+                                        <div className="flex gap-1 items-center">
+                                            <button className="cursor-pointer">
+                                                <img src={grid} alt="" className="bg-black p-3 rounded-xl w-10 h-10"/>
+                                            </button>
+
+                                            <button className="cursor-pointer">
+                                                <img src={list} alt="" className="bg-white border border-gray-300 p-3 rounded-xl w-10 h-10"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    
+                                </div>
+                            </div>    
+                        </div>       
+                    </div>         
                 </div>
 
                 <Footer
