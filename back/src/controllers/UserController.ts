@@ -85,7 +85,7 @@ export class UserController {
 	public static async readUser(request: Request, response: Response){
 		try {
 			const userId  = request.user as string;
-			console.log(userId);
+			//console.log(userId); para testes
 			
 			const foundUser = await prisma.user.findUnique({
 				where: {
@@ -108,7 +108,7 @@ export class UserController {
 
 	public static async deleteUser(request: Request, response: Response) {
 		try {
-			const { userId } = request.params;
+			const userId  = request.user as string;
 
 			const deletedUser = await prisma.user.delete({
 				where: {
@@ -123,7 +123,7 @@ export class UserController {
 
 	public static async updateUser(request: Request, response: Response){
 		try {
-			const { userId } = request.params;
+			const userId  = request.user as string;
 			const { firstName, lastName, imageSrc, gender, email, birthDate, phone} = request.body;
 
 			const createInput: Prisma.UserUpdateInput = {
