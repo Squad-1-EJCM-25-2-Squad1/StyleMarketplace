@@ -99,7 +99,7 @@ export class ProductController {
             } 
 
             const updatedProduct = await prisma.product.update({
-                where: { id: categoryId },
+                where: { id: productId },
                 data: {
                     name,
                     description,
@@ -144,7 +144,7 @@ export class ProductController {
 
     public static async uploadImage(req: Request, res: Response) {
         try {
-            const { produtoId, isMain } = req.params;
+            const { productId, isMain } = req.params;
 
             if (!req.file) {
             return res.status(400).json({ message: "Nenhum arquivo enviado." });
@@ -156,7 +156,7 @@ export class ProductController {
             const newImage = await prisma.productImage.create({
             data: {
                 imageUrl: imagePath,
-                productId: produtoId,
+                productId: productId,
                 isMain: false
             }
             });

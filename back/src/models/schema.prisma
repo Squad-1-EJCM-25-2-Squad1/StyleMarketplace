@@ -29,12 +29,9 @@ model User {
   hash String
   salt String
 
-  //Fazer ser obrigatorio a criação de tanto um cart quanto uma wishlist, mesmo que vazios
-  //na criação do usuário, pode ser alterado depois para uma aproximação mais simples
-  cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  cartId     String   @unique
-  wishlist   Wishlist  @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
-  wishlistId String   @unique
+  //relação 1:1
+  cart       Cart?
+  wishlist   Wishlist? 
 
   //relaçoes com outras models
   orders Order[]
@@ -42,19 +39,20 @@ model User {
 }
 
 model Product {
-  id          String    @id @default(uuid())
-  name        String
-  description String
-  basePrice   Decimal
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
+  id             String    @id @default(uuid())
+  name           String
+  description    String
+  basePrice      Decimal
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
 
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId     String
+  category       Category  @relation(fields: [categoryId], references: [id])
   
-  order_products      OrderProduct[] // Relação com OrderProduct
+  order_products OrderProduct[] // Relação com OrderProduct
 
-  images      ProductImage[]
+  images         ProductImage[]
+  reviews        Review[]
 }
 
 model ProductImage {
@@ -67,29 +65,34 @@ model ProductImage {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(uuid())
   name     String    @unique
   products Product[]
 }   
 
-
+// falta implementar essa model completamente
 model Cart{
   id       String   @id @default(uuid())
-  owner    User?
 
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
 }
 
+// Falta implementar a model CartItem tambem
+
 model Wishlist {
-  user_id             Int             @id
-  user                User            @relation("UserWishlist", fields: [user_id], references: [id])
-  created_date        DateTime        @default(now())
-  items               Wishlist_item[]
+  id            String          @id @default(uuid())
+  created_date  DateTime        @default(now())
+  items         Wishlist_item[]
+
+  user_id       String          @unique
+  user          User            @relation(fields: [user_id], references: [id])
 }
 
 model Wishlist_item {
-  wishlist_item_id    Int             @id @default(autoincrement())
-  wishlist_id         Int
-  product_id          Int
+  wishlist_item_id    String          @id @default(uuid())
+  wishlist_id         String
+  product_id          String
   added_date          DateTime        @default(now())
   
   wishlist            Wishlist        @relation(fields: [wishlist_id], references: [user_id])
@@ -99,8 +102,8 @@ model Wishlist_item {
 }
 
 model Order {
-  id                  Int             @id @default(autoincrement())
-  user_id             Int
+  id                  String          @id @default(uuid())
+  user_id             String
   status              String          @default("pending") // pending, shipped, delivered, cancelled
   date_ordered        DateTime        @default(now())
   total_cost          Decimal         @db.Decimal(10, 2)
@@ -111,9 +114,9 @@ model Order {
 }
 
 model OrderProduct {
-  id                  Int             @id @default(autoincrement())
-  order_id            Int
-  product_id          Int
+  id                  String             @id @default(uuid())
+  order_id            String
+  product_id          String
   quantity            Int             @default(1)
   unit_price          Decimal         @db.Decimal(10, 2)
   
@@ -126,8 +129,8 @@ model OrderProduct {
 
 model Review{
   id        String   @id @default(uuid())
-  ownerId String
-  owner    User   @relation(fields: [ownerId], references: [id])
+  userId   String
+  user      User   @relation(fields: [ownerId], references: [id])
 }
 
 model Variant {
@@ -165,7 +168,7 @@ model Offer {
   name          String    
   description   String?   
   discountType  String    
-  discountValue Float     
+  discountValue Decimal     
   startsAt      DateTime  
   endsAt        DateTime  
   isActive      Boolean   
