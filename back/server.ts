@@ -2,7 +2,9 @@ import express from 'express';
 import configDotenv from './src/config/dotenv';
 import cors from 'cors';
 import routes from './src/routes/routes';
+import configAuth from './src/middlewares/authMiddleware';
 
+configAuth();
 configDotenv();
 
 const app = express();

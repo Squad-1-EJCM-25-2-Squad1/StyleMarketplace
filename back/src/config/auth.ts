@@ -24,7 +24,6 @@ const generatePassword = (password: string) => {
   };
 };
 
-
 const generateJWT = (user: any) => {
   const sub = user.id;
   const payload = {
@@ -39,14 +38,12 @@ const generateJWT = (user: any) => {
   return jwt;
 };
 
-
 const checkPassword = (password: string, hash: string, salt: string) => {
   const hashFromRequest = crypto
     .pbkdf2Sync(password, salt, 10000, 64, "sha512")
     .toString("hex");
   return hashFromRequest === hash;
 };
-
 
 const decodeJWT = (token: any) => {
   const payload = token.split(".")[1];

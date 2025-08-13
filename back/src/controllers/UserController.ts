@@ -56,7 +56,6 @@ export class UserController {
 
 	static async login(request: Request, response: Response) {
 
-
         try {
             
             const {email, password} = request.body;
@@ -73,18 +72,21 @@ export class UserController {
             if(!auth.checkPassword(password, hash, salt)){
                 return response.status(400).json({message:"Senha incorreta"})
             }
-
-			return response.status(201).json({message:"Login completo"})
+            const token = auth.generateJWT(user);
+    
+            return response.status(201).json({message:"Token enviado:" ,token: token})
 
         } catch (error) {
             return response.status(500).json()
 
-        }   
+        }  
     }
 
 	public static async readUser(request: Request, response: Response){
 		try {
-			const { userId } = request.params;
+			const userId  = request.user as string;
+			console.log(userId);
+			
 			const foundUser = await prisma.user.findUnique({
 				where: {
 					id: userId,

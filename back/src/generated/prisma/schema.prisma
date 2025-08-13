@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  phone     String
+  gender    String //deve ser um de "Masculino, feminino ou Outro" fazer o enum depois
+  imageSrc  String
+  createdAt DateTime @default(now())
+  birthDate String
+
+  //parte do password
+  hash String
+  salt String
+
+  //Fazer ser obrigatorio a criação de tanto um cart quanto uma wishlist, mesmo que vazios
+  //na criação do usuário, pode ser alterado depois para uma aproximação mais simples
+  cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId     String   @unique
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  wishlistId String   @unique
+
+  //relaçoes com outras models
+  orders  Order[]
+  reviews Review[]
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  basePrice   Decimal
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  images ProductImage[]
+}
+
+model ProductImage {
+  id       String  @id @default(uuid())
+  imageUrl String
+  isMain   Boolean @default(false)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+////todos são placeholder pra não dar erro
+
+model Cart {
+  id    String @id @default(uuid())
+  owner User?
+}
+
+model Wishlist {
+  id    String @id @default(uuid())
+  owner User?
+}
+
+model Order {
+  id      String @id @default(uuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+}
+
+model Review {
+  id      String @id @default(uuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+}
+
+model Variant {
+  id       String  @id @default(uuid())
+  price    Float
+  stock    Int
+  isActive Boolean
+
+  //productId String    
+  //product   Product   @relation(fields: [productId], references: [id])
+
+  colorId String
+  color   Color  @relation(fields: [colorId], references: [id])
+
+  sizeId String
+  size   Size   @relation(fields: [sizeId], references: [id])
+}
+
+model Color {
+  id       String    @id @default(uuid())
+  name     String
+  hexCode  String
+  variants Variant[]
+}
+
+model Size {
+  id       String    @id @default(uuid())
+  label    String
+  variants Variant[]
+}
+
+model Offer {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  name          String
+  description   String?
+  discountType  String
+  discountValue Float
+  startsAt      DateTime
+  endsAt        DateTime
+  isActive      Boolean
+
+  //productId     String    
+  //product       Product   @relation(fields: [productId], references: [id]) 
+
+  //cartItems     CartItem[]
+}
