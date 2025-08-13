@@ -12,11 +12,15 @@ interface SaleCardProps{
 import wishlist from "../assets/home/favorito.svg";
 import rating from "../assets/home/ratingStar.svg";
 import cart from "../assets/sales/whiteCart.svg";
+import wishlisted from "../assets/sales/wishlisted.svg";
+import { useState } from "react";
 
 export default function SaleCard(props: SaleCardProps){
     const percentageDiscount = Math.round((props.oldPrice -props.price)/props.oldPrice * 100);
 
     const discount = props.oldPrice - props.price;
+
+    const [wishlistedItem, setWishlistedItem] = useState<boolean>(false)
 
     return(
     <div className="flex flex-col shadow-md w-80 rounded-xl">
@@ -64,8 +68,14 @@ export default function SaleCard(props: SaleCardProps){
                     Add to Cart
                 </button>
 
-                <button className="flex justify-center items-center w-10 h-10 border border-gray-400 rounded-xl cursor-pointer">
-                    <img src={wishlist} alt=""/>
+                <button onClick={() => setWishlistedItem(!wishlistedItem)} className="flex justify-center items-center w-10 h-10 border border-gray-400 bg-white rounded-xl cursor-pointer
+                transition duration-300 ease-in-out filter brightness-100 hover:brightness-95">
+                    {!wishlistedItem && (
+                        <img src={wishlist} alt=""/>
+                    )}
+                    {wishlistedItem && (
+                        <img src={wishlisted} alt=""/>
+                    )}
                 </button>
             </div>
         </div>

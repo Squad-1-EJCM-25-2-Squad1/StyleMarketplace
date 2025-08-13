@@ -9,8 +9,12 @@ import list from "../../assets/sales/list.svg";
 import SaleCard from "../../components/saleCard";
 import saleProducts from "../../data/sales/saleProductsData";
 import noImage from "../../assets/home/noImage.png"
+import { useState } from "react";
+import whiteGrid from "../../assets/sales/whiteGrid.svg";
+import whiteList from "../../assets/sales/whiteList.svg";
 
 export default function Sales(){
+    const [gridView, setGridView] = useState<boolean>(true)
     return(
         <div className="flex flex-col min-h-screen">
                 <Header/>
@@ -124,11 +128,11 @@ export default function Sales(){
                                 <div className="w-64 flex flex-col gap-3 text-gray-950 text-lg font-semibold">
                                     Price Range
 
-                                    <select id="price-range" name="price-range" className="font-normal text-sm py-2 px-3 border-1 border-gray-300 rounded-xl text-gray-950 shadow-sm focus:outline-none cursor-pointer">
-                                        <option value="all">All Prices</option>
-                                        <option value="0-10">$0 - $10</option>
-                                        <option value="10-30">$10 - $30</option>
-                                        <option value="30-100">$30 - $100</option>
+                                    <select id="price-range" name="price-range" className="font-bold text-sm py-2 px-3 border-1 border-gray-300 rounded-xl text-gray-950 shadow-sm focus:outline-none cursor-pointer">
+                                        <option value="all" className="font-bold">All Prices</option>
+                                        <option value="0-10" className="font-bold">$0 - $10</option>
+                                        <option value="10-30" className="font-bold">$10 - $30</option>
+                                        <option value="30-100" className="font-bold">$30 - $100</option>
                                     </select>
                                 </div>
                             </div>
@@ -142,18 +146,37 @@ export default function Sales(){
                                     </div>
                                     
                                     <div className="flex gap-4 items-center">
-                                        <select id="sale-items" name="sale-items" className="w-48 h-10 font-normal text-sm py-2 px-3 border-1 border-gray-300 rounded-xl text-gray-950 shadow-sm focus:outline-none cursor-pointer">
-                                            <option value="featured">Featured</option>
+                                        <select id="sale-items" name="sale-items" className="w-48 h-10 font-bold text-sm py-2 px-3 border-1 border-gray-300 rounded-xl text-gray-950 shadow-sm focus:outline-none cursor-pointer">
+                                            <option value="featured" className="font-bold">Featured</option>
                                         </select>
                                         
                                         <div className="flex gap-1 items-center">
-                                            <button className="cursor-pointer">
-                                                <img src={grid} alt="" className="bg-black p-3 rounded-xl w-10 h-10"/>
-                                            </button>
+                                        {gridView &&(
+                                            <>
+                                                <button className="cursor-pointer">
+                                                    <img src={whiteGrid} alt="" className="bg-black p-3 rounded-xl w-10 h-10
+                                                    transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-70"/>
+                                                </button>
 
-                                            <button className="cursor-pointer">
-                                                <img src={list} alt="" className="bg-white border border-gray-300 p-3 rounded-xl w-10 h-10"/>
-                                            </button>
+                                                <button onClick={() => setGridView(false)} className="cursor-pointer">
+                                                    <img src={list} alt="" className="bg-white border border-gray-300 p-3 rounded-xl w-10 h-10
+                                                    transition duration-300 ease-in-out filter brightness-100 hover:brightness-95"/>
+                                                </button>
+                                            </>
+                                        )}
+                                        {!gridView &&(
+                                            <>
+                                                <button onClick={() => setGridView(true)} className="cursor-pointer">
+                                                    <img src={grid} alt="" className="bg-white border border-gray-300 p-3 rounded-xl w-10 h-10
+                                                    transition duration-300 ease-in-out filter brightness-100 hover:brightness-95"/>
+                                                </button>
+
+                                                <button className="cursor-pointer">
+                                                    <img src={whiteList} alt="" className="bg-black p-3 rounded-xl w-10 h-10
+                                                    transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-70"/>
+                                                </button>
+                                            </>
+                                        )}
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +204,8 @@ export default function Sales(){
                 <Footer
                     title = "Don't Miss Future Sales!"
                     subtitle = "Subscribe to our newsletter and be the first to know about exclusive sales and special offers."
-                    color = "#EF4444"
+                    color = "#AF1F5F"
+                    color2= "#BF3636"
                 />
         </div>
     )
