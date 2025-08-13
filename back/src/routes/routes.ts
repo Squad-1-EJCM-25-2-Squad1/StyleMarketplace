@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import { Router } from "express";
-import VariantController from "../controllers/VariantController";
-import ColorController from "../controllers/ColorController";
-import SizeController from "../controllers/SizeController";
-import OfferController from "../controllers/OfferController";
-import { ProductController } from "../controllers/productController";
-import { photoUpload } from "../config/uploader";
-import { UserController } from "../controllers/UserController";
-=======
 import { Router } from 'express';
 import VariantController from '../controllers/VariantController'; 
 import ColorController from '../controllers/ColorController';
@@ -17,7 +7,12 @@ import { ProductController } from '../controllers/productController';
 import { photoUpload } from '../config/uploader';
 import { WishlistController } from '../controllers/WishlistController';
 import { OrderController } from '../controllers/OrderController';
->>>>>>> main
+import { UserController } from "../controllers/UserController";
+import { validateSignup, validateLogin, validateUserIdParam, validateUserUpdateBody } from '../middlewares/userValidation';
+import { validateProductCreateBody,validateProductUpdateBody, validateProductIdParam } from '../middlewares/productValidation';
+import { validateOfferCreateBody,validateOfferUpdateBody,validateOfferIdParam } from '../middlewares/offerValidation';
+
+
 
 const router = Router();
 
@@ -64,19 +59,19 @@ router.put("/size/:id", SizeController.updateSize);
 router.delete("/size/:id", SizeController.deleteSize);
 
 // --- Rotas de Ofertas ---
-router.post("/offer", OfferController.createOffer);
-router.get("/offer/:id", OfferController.readOffer);
+router.post("/offer", validateOfferCreateBody, OfferController.createOffer);
+router.get("/offer/:id", validateOfferIdParam, OfferController.readOffer);
 router.get("/offer", OfferController.readAllOffers);
-router.put("/offer/:id", OfferController.updateOffer);
-router.delete("/offer/:id", OfferController.deleteOffer);
+router.put("/offer/:id", validateOfferIdParam, validateOfferUpdateBody, OfferController.updateOffer);
+router.delete("/offer/:id", validateOfferIdParam, OfferController.deleteOffer);
 
 // ======= Product
 
-router.post("/", ProductController.create);
-router.get("/", ProductController.readAll);
-router.get("/:productId", ProductController.readProduct);
-router.put("/:productId", ProductController.update);
-router.delete("/:productId", ProductController.deleteProduct);
+router.post("/product/", validateProductCreateBody, ProductController.create);
+router.get("/product/", ProductController.readAll);
+router.get("/:productId", validateProductIdParam, ProductController.readProduct);
+router.put("/:productId", validateProductIdParam, validateProductUpdateBody, ProductController.update);
+router.delete("/:productId", validateProductIdParam, ProductController.deleteProduct);
 
 router.post(
   "/:produtoId/image",
@@ -86,11 +81,11 @@ router.post(
 
 // ======= User
 
-router.post("/signup", UserController.signup);
-router.post("/login", UserController.login);
-router.get("/user/:userId", UserController.readUser);
-router.get("/user/:userId", UserController.updateUser);
-router.delete("/user/:userId", UserController.deleteUser);
+router.post("/signup", validateSignup, UserController.signup);
+router.post("/login", validateLogin, UserController.login);
+router.get("/user/:userId", validateUserIdParam, UserController.readUser);
+router.get("/user/:userId", validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
+router.delete("/user/:userId", validateUserIdParam, UserController.deleteUser);
 
 //rota de teste para pegar os IDs, pode ser apagada depois
 //router.get("/users", UserController.readAllUsers);
