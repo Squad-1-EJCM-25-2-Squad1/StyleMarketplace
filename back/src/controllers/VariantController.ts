@@ -7,7 +7,7 @@ class VariantController {
     public async createVariant(req: Request, res: Response) {
         try {
             // Pegar os dados do corpo da requisição (productId quando adicionar a model Product)
-            const { price, stock, isActive, colorId, sizeId } = req.body;
+            const { price, stock, isActive, colorId, sizeId, productId } = req.body;
 
             // (!productId)
             if (price === undefined || stock === undefined || isActive === undefined || !colorId || !sizeId) {
@@ -21,7 +21,7 @@ class VariantController {
                     price,
                     stock,
                     isActive,
-                    //productId,
+                    productId,
                     colorId,
                     sizeId
                 }

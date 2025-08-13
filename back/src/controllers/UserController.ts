@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../generated/prisma";
 import { Request, Response } from "express";
 import auth from "../config/auth";
 
@@ -21,7 +21,7 @@ export class UserController {
 
       // Cria o carrinho vazio
       const cart = await prisma.cart.create({
-        data: {},
+        data: {userId: "10ab"},
       });
 
       // Cria a wishlist vazia
@@ -41,7 +41,7 @@ export class UserController {
           connect: { id: cart.id },
         },
         wishlist: {
-          connect: { id: wishlist.id },
+          connect: { userId: wishlist.userId },
         },
         hash: hash,
         salt: salt,
@@ -86,8 +86,7 @@ export class UserController {
 
   public static async readUser(request: Request, response: Response) {
     try {
-      //   const { id } = request.user as string;
-      const { id } = request.params;
+      const id  = request.user as string;
 
       try {
         const foundUser = await prisma.user.findUnique({
@@ -112,7 +111,7 @@ export class UserController {
 
   public static async deleteUser(request: Request, response: Response) {
     try {
-      const { userId } = request.params;
+      const userId  = request.user as string;
 
       const deletedUser = await prisma.user.delete({
         where: {
@@ -127,7 +126,7 @@ export class UserController {
 
   public static async updateUser(request: Request, response: Response) {
     try {
-      const { userId } = request.params;
+      const userId  = request.user as string;
       const { firstName, lastName, imageSrc, gender, email, birthDate, phone } =
         request.body;
 
