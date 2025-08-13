@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import { Router } from "express";
-import VariantController from "../controllers/VariantController";
-import ColorController from "../controllers/ColorController";
-import SizeController from "../controllers/SizeController";
-import OfferController from "../controllers/OfferController";
-import { ProductController } from "../controllers/productController";
-import { photoUpload } from "../config/uploader";
-import { UserController } from "../controllers/UserController";
-=======
 import { Router } from 'express';
 import VariantController from '../controllers/VariantController'; 
 import ColorController from '../controllers/ColorController';
@@ -17,7 +7,7 @@ import { ProductController } from '../controllers/productController';
 import { photoUpload } from '../config/uploader';
 import { WishlistController } from '../controllers/WishlistController';
 import { OrderController } from '../controllers/OrderController';
->>>>>>> main
+import { UserController } from "../controllers/UserController";
 
 const router = Router();
 
