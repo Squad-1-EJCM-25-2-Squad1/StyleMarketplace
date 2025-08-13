@@ -136,8 +136,8 @@ model Variant {
   stock     Int       
   isActive  Boolean   
 
-  //productId String    
-  //product   Product   @relation(fields: [productId], references: [id])
+  productId String    
+  product   Product   @relation(fields: [productId], references: [id])
 
   colorId   String      
   color     Color     @relation(fields: [colorId], references: [id])
@@ -170,8 +170,8 @@ model Offer {
   endsAt        DateTime  
   isActive      Boolean   
 
-  //productId     String    
-  //product       Product   @relation(fields: [productId], references: [id]) 
+  productId     String    
+  product       Product   @relation(fields: [productId], references: [id]) 
 
   //cartItems     CartItem[]
 }
