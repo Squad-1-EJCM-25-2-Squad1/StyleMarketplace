@@ -53,6 +53,10 @@ model Product {
 
   images         ProductImage[]
   reviews        Review[]
+  variants       Variant[]      
+  offers         ProductOffer[] 
+  wishlistItems  WishlistItem[] 
+  //cartItems      CartItem[]
 }
 
 model ProductImage {
