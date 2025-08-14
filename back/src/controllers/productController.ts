@@ -56,9 +56,8 @@ export class ProductController {
                             size: true,
                         },
                     },
-                    productOffers: { 
+                    offers: { 
                         include: {
-                            offer: true,
                         },
                     },   
                 },
@@ -87,9 +86,8 @@ export class ProductController {
                             size: true,
                         },
                     },
-                    productOffers: { 
+                    offers: { 
                         include: {
-                            offer: true,
                         },
                     },   
                 },
@@ -145,9 +143,8 @@ export class ProductController {
                             size: true,
                         },
                     },
-                    productOffers: { 
+                    offers: { 
                         include: {
-                            offer: true,
                         },
                     },   
                 },
@@ -186,7 +183,7 @@ export class ProductController {
 
     public static async uploadImage(req: Request, res: Response) {
         try {
-            const { productId, isMain } = req.params;
+            const { productId } = req.params;
 
             if (!req.file) {
             return res.status(400).json({ message: "Nenhum arquivo enviado." });
