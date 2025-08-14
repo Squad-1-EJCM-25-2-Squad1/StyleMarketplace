@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../generated/prisma";
 import { Request, Response } from "express";
 import auth from "../config/auth";
 
@@ -17,38 +17,24 @@ export class UserController {
         phone,
         password,
       } = request.body;
+      
       const { hash, salt } = auth.generatePassword(password);
 
-      // Cria o carrinho vazio
-      const cart = await prisma.cart.create({
-        data: {},
-      });
-
-      // Cria a wishlist vazia
-      const wishlist = await prisma.wishlist.create({
-        data: {},
-      });
-
-      const createInput: Prisma.UserCreateInput = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        birthDate: birthDate,
-        phone: phone,
-        imageSrc: imageSrc,
-        gender: gender,
-        cart: {
-          connect: { id: cart.id },
-        },
-        wishlist: {
-          connect: { id: wishlist.id },
-        },
-        hash: hash,
-        salt: salt,
-      };
-
       const createdUser = await prisma.user.create({
-        data: createInput,
+        data: {
+          firstName,
+          lastName,
+          email,
+          birthDate,
+          phone,
+          imageSrc,
+          gender,
+          hash,
+          salt,
+          cart: { create: {} },
+          wishlist: { create: {} }
+        },
+        include: { cart: true, wishlist: true }
       });
 
       if (!createdUser) {
@@ -86,8 +72,7 @@ export class UserController {
 
   public static async readUser(request: Request, response: Response) {
     try {
-      //   const { id } = request.user as string;
-      const { id } = request.params;
+      const id  = request.user as string;
 
       try {
         const foundUser = await prisma.user.findUnique({
@@ -112,7 +97,7 @@ export class UserController {
 
   public static async deleteUser(request: Request, response: Response) {
     try {
-      const { userId } = request.params;
+      const userId  = request.user as string;
 
       const deletedUser = await prisma.user.delete({
         where: {
@@ -127,7 +112,7 @@ export class UserController {
 
   public static async updateUser(request: Request, response: Response) {
     try {
-      const { userId } = request.params;
+      const userId  = request.user as string;
       const { firstName, lastName, imageSrc, gender, email, birthDate, phone } =
         request.body;
 

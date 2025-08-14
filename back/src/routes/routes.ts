@@ -1,13 +1,17 @@
 import { Router } from 'express';
+import passport from 'passport';
+
 import VariantController from '../controllers/VariantController'; 
 import ColorController from '../controllers/ColorController';
 import SizeController from '../controllers/SizeController';
 import OfferController from '../controllers/OfferController';
 import { ProductController } from '../controllers/productController';
-import { photoUpload } from '../config/uploader';
 import { WishlistController } from '../controllers/WishlistController';
 import { OrderController } from '../controllers/OrderController';
 import { UserController } from "../controllers/UserController";
+
+import { photoUpload } from '../config/uploader';
+
 import { validateSignup, validateLogin, validateUserIdParam, validateUserUpdateBody } from '../middlewares/userValidation';
 import { validateProductCreateBody,validateProductUpdateBody, validateProductIdParam } from '../middlewares/productValidation';
 import { validateOfferCreateBody,validateOfferUpdateBody,validateOfferIdParam } from '../middlewares/offerValidation';
@@ -15,26 +19,27 @@ import { validateOfferCreateBody,validateOfferUpdateBody,validateOfferIdParam } 
 
 
 const router = Router();
+const auth = passport.authenticate("jwt", { session: false });
 
 
 // Rotas de Wishlist
 router.post('/wishlist', WishlistController.createWishlist);
-router.get('/wishlist/user/:user_id', WishlistController.getWishlistByUser);
-router.delete('/wishlist/:user_id', WishlistController.deleteWishlist);
+router.get('/wishlist/user/:userId', WishlistController.getWishlistByUser);
+router.delete('/wishlist/:userId', WishlistController.deleteWishlist);
 
 // Rotas de Itens da Wishlist
 router.post('/wishlist/items', WishlistController.addItemToWishlist);
-router.get('/wishlist/:user_id/items', WishlistController.getWishlistItems);
-router.delete('/wishlist/:user_id/items/:product_id', WishlistController.removeItemFromWishlist);
-router.get('/wishlist/:user_id/items/:product_id/check', WishlistController.checkProductInWishlist);
+router.get('/wishlist/:userId/items', WishlistController.getWishlistItems);
+router.delete('/wishlist/:userId/items/:product_id', WishlistController.removeItemFromWishlist);
+router.get('/wishlist/:userId/items/:product_id/check', WishlistController.checkProductInWishlist);
 
 // Rotas de Order
 router.post('/orders', OrderController.createOrder);
-router.get('/orders/user/:user_id', OrderController.getOrdersByUser);
-router.get('/orders/:order_id', OrderController.getOrderById);
-router.put('/orders/:order_id/status', OrderController.updateOrderStatus);
-router.post('/orders/:order_id/products', OrderController.addProductToOrder);
-router.delete('/orders/:order_id/products/:product_id', OrderController.removeProductFromOrder);
+router.get('/orders/user/:userId', OrderController.getOrdersByUser);
+router.get('/orders/:orderId', OrderController.getOrderById);
+router.put('/orders/:orderId/status', OrderController.updateOrderStatus);
+router.post('/orders/:orderId/products', OrderController.addProductToOrder);
+router.delete('/orders/:orderId/products/:product_id', OrderController.removeProductFromOrder);
 router.get('/orders', OrderController.getAllOrders);
 
 // --- Rotas de Variantes ---
@@ -67,8 +72,8 @@ router.delete("/offer/:id", validateOfferIdParam, OfferController.deleteOffer);
 
 // ======= Product
 
-router.post("/product/", validateProductCreateBody, ProductController.create);
-router.get("/product/", ProductController.readAll);
+router.post("/product", validateProductCreateBody, ProductController.create);
+router.get("/product", ProductController.readAll);
 router.get("/:productId", validateProductIdParam, ProductController.readProduct);
 router.put("/:productId", validateProductIdParam, validateProductUpdateBody, ProductController.update);
 router.delete("/:productId", validateProductIdParam, ProductController.deleteProduct);
