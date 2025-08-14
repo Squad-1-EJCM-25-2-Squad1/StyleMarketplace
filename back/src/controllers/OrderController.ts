@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../generated/prisma';
 
 const prisma = new PrismaClient();
 
@@ -9,11 +9,11 @@ export class OrderController {
   // Criar um novo pedido
   public static async createOrder(req: Request, res: Response) {
     try {
-      const { user_id, address, products } = req.body;
+      const { userId, address, products } = req.body;
 
       // Validar se o usuário existe
       const user = await prisma.user.findUnique({
-        where: { id: parseInt(user_id) }
+        where: { id: userId }
       });
 
       if (!user) {
@@ -24,24 +24,24 @@ export class OrderController {
       let totalCost = 0;
       for (const product of products) {
         const productData = await prisma.product.findUnique({
-          where: { id: parseInt(product.product_id) }
+          where: { id: product.productId }
         });
         
         if (!productData) {
-          return res.status(404).json({ error: `Produto ${product.product_id} não encontrado` });
+          return res.status(404).json({ error: `Produto ${product.productId} não encontrado` });
         }
         
         // Converter Decimal para Number para cálculos
-        const basePrice = Number(productData.base_price);
+        const basePrice = Number(productData.basePrice);
         totalCost += basePrice * product.quantity;
       }
 
       // Criar o pedido
       const order = await prisma.order.create({
         data: {
-          user_id: parseInt(user_id),
+          userId: userId,
           address,
-          total_cost: totalCost
+          totalCost: totalCost
         }
       });
 
@@ -49,10 +49,10 @@ export class OrderController {
       for (const product of products) {
         await prisma.orderProduct.create({
           data: {
-            order_id: order.id,
-            product_id: parseInt(product.product_id),
-            quantity: parseInt(product.quantity),
-            unit_price: Number(product.unit_price || 0)
+            orderId: order.id,
+            productId: product.productId,
+            quantity: product.quantity,
+            unitPrice: Number(product.unitPrice || 0)
           }
         });
       }
@@ -62,7 +62,7 @@ export class OrderController {
         where: { id: order.id },
         include: {
           user: true,
-          order_products: {
+          orderProducts: {
             include: {
               product: true
             }
@@ -80,18 +80,18 @@ export class OrderController {
   // Buscar pedidos por usuário
   public static async getOrdersByUser(req: Request, res: Response) {
     try {
-      const { user_id } = req.params;
+      const { userId } = req.params;
 
       const orders = await prisma.order.findMany({
-        where: { user_id: parseInt(user_id) },
+        where: { userId: userId },
         include: {
-          order_products: {
+          orderProducts: {
             include: {
               product: true
             }
           }
         },
-        orderBy: { date_ordered: 'desc' }
+        orderBy: { dateOrdered: 'desc' }
       });
 
       res.json(orders);
@@ -104,13 +104,13 @@ export class OrderController {
   // Buscar pedido por ID
   public static async getOrderById(req: Request, res: Response) {
     try {
-      const { order_id } = req.params;
+      const { orderId } = req.params;
 
       const order = await prisma.order.findUnique({
-        where: { id: parseInt(order_id) },
+        where: { id: orderId },
         include: {
           user: true,
-          order_products: {
+          orderProducts: {
             include: {
               product: true
             }
@@ -132,7 +132,7 @@ export class OrderController {
   // Atualizar status do pedido
   public static async updateOrderStatus(req: Request, res: Response) {
     try {
-      const { order_id } = req.params;
+      const { orderId } = req.params;
       const { status } = req.body;
 
       const validStatuses = ['pending', 'shipped', 'delivered', 'cancelled'];
@@ -141,10 +141,10 @@ export class OrderController {
       }
 
       const order = await prisma.order.update({
-        where: { id: parseInt(order_id) },
+        where: { id: orderId },
         data: { status },
         include: {
-          order_products: {
+          orderProducts: {
             include: {
               product: true
             }
@@ -162,12 +162,12 @@ export class OrderController {
   // Adicionar produto a um pedido existente
   public static async addProductToOrder(req: Request, res: Response) {
     try {
-      const { order_id } = req.params;
-      const { product_id, quantity, unit_price } = req.body;
+      const { orderId } = req.params;
+      const { productId, quantity, unitPrice } = req.body;
 
       // Verificar se o pedido existe
       const order = await prisma.order.findUnique({
-        where: { id: parseInt(order_id) }
+        where: { id: orderId }
       });
 
       if (!order) {
@@ -176,7 +176,7 @@ export class OrderController {
 
       // Verificar se o produto existe
       const product = await prisma.product.findUnique({
-        where: { id: parseInt(product_id) }
+        where: { id: productId }
       });
 
       if (!product) {
@@ -186,10 +186,10 @@ export class OrderController {
       // Adicionar produto ao pedido
       const orderProduct = await prisma.orderProduct.create({
         data: {
-          order_id: parseInt(order_id),
-          product_id: parseInt(product_id),
+          orderId: orderId,
+          productId: productId,
           quantity: parseInt(quantity),
-          unit_price: Number(unit_price)
+          unitPrice: Number(unitPrice)
         },
         include: {
           product: true
@@ -198,18 +198,18 @@ export class OrderController {
 
       // Recalcular o custo total do pedido
       const allOrderProducts = await prisma.orderProduct.findMany({
-        where: { order_id: parseInt(order_id) }
+        where: { orderId: orderId }
       });
 
       let newTotalCost = 0;
       for (const op of allOrderProducts) {
-        newTotalCost += Number(op.unit_price) * op.quantity;
+        newTotalCost += Number(op.unitPrice) * op.quantity;
       }
 
       // Atualizar o custo total do pedido
       await prisma.order.update({
-        where: { id: parseInt(order_id) },
-        data: { total_cost: newTotalCost }
+        where: { id: orderId },
+        data: { totalCost: newTotalCost }
       });
 
       res.status(201).json(orderProduct);
@@ -222,14 +222,14 @@ export class OrderController {
   // Remover produto de um pedido
   public static async removeProductFromOrder(req: Request, res: Response) {
     try {
-      const { order_id, product_id } = req.params;
+      const { orderId, productId } = req.params;
 
       // Verificar se o produto existe no pedido
       const orderProduct = await prisma.orderProduct.findUnique({
         where: {
-          order_id_product_id: {
-            order_id: parseInt(order_id),
-            product_id: parseInt(product_id)
+          orderId_productId: {
+            orderId: orderId,
+            productId: productId
           }
         }
       });
@@ -241,27 +241,27 @@ export class OrderController {
       // Remover o produto do pedido
       await prisma.orderProduct.delete({
         where: {
-          order_id_product_id: {
-            order_id: parseInt(order_id),
-            product_id: parseInt(product_id)
+          orderId_productId: {
+            orderId: orderId,
+            productId: productId
           }
         }
       });
 
       // Recalcular o custo total do pedido
       const remainingOrderProducts = await prisma.orderProduct.findMany({
-        where: { order_id: parseInt(order_id) }
+        where: { orderId: orderId }
       });
 
       let newTotalCost = 0;
       for (const op of remainingOrderProducts) {
-        newTotalCost += Number(op.unit_price) * op.quantity;
+        newTotalCost += Number(op.unitPrice) * op.quantity;
       }
 
       // Atualizar o custo total do pedido
       await prisma.order.update({
-        where: { id: parseInt(order_id) },
-        data: { total_cost: newTotalCost }
+        where: { id: orderId },
+        data: { totalCost: newTotalCost }
       });
 
       res.json({ message: 'Produto removido do pedido com sucesso' });
@@ -277,13 +277,13 @@ export class OrderController {
       const orders = await prisma.order.findMany({
         include: {
           user: true,
-          order_products: {
+          orderProducts: {
             include: {
               product: true
             }
           }
         },
-        orderBy: { date_ordered: 'desc' }
+        orderBy: { dateOrdered: 'desc' }
       });
 
       res.json(orders);

@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -31,7 +31,7 @@ model User {
 
   //relação 1:1
   cart       Cart?
-  wishlist   Wishlist?
+  wishlist   Wishlist? 
 
   //relaçoes com outras models
   orders Order[]
@@ -49,13 +49,14 @@ model Product {
   categoryId     String
   category       Category  @relation(fields: [categoryId], references: [id])
   
-  order_products OrderProduct[] // Relação com OrderProduct
+  orderProducts  OrderProduct[] // Relação com OrderProduct
 
   images         ProductImage[]
+  reviews        Review[]
   variants       Variant[]      
   offers         Offer[] 
-  wishlistItems  Wishlist_item[] 
-  //cartItems      CartItem[]
+  wishlistItems  WishlistItem[] 
+  //cartItems    CartItem[]
 }
 
 model ProductImage {
@@ -84,54 +85,57 @@ model Cart{
 // Falta implementar a model CartItem tambem
 
 model Wishlist {
-  userId             String          @id @default(uuid()) 
+  userId              String          @id 
   user                User            @relation(fields: [userId], references: [id])
-  created_date        DateTime        @default(now())
-  items               Wishlist_item[]
+  createdDate         DateTime        @default(now())
+  items               WishlistItem[]
 }
 
-model Wishlist_item {
-  wishlist_item_id    String          @id @default(uuid())
-  wishlist_id         String
-  product_id          String
-  added_date          DateTime        @default(now())
+model WishlistItem {
+  wishlistItemId      String          @id @default(uuid())
+  wishlistId          String
+  productId           String
+  addedDate           DateTime        @default(now())
   
-  wishlist            Wishlist        @relation(fields: [wishlist_id], references: [userId])
-  product             Product         @relation(fields: [product_id], references: [id])
+  wishlist            Wishlist        @relation(fields: [wishlistId], references: [userId])
+  product             Product         @relation(fields: [productId], references: [id])
+
   
-  @@unique([wishlist_id, product_id])
+  @@unique([wishlistId, productId])
 }
 
 model Order {
   id                  String          @id @default(uuid())
-  user_id             String
+  userId              String
   status              String          @default("pending") // pending, shipped, delivered, cancelled
-  date_ordered        DateTime        @default(now())
-  total_cost          Decimal         @db.Decimal(10, 2)
+  dateOrdered         DateTime        @default(now())
+  totalCost           Decimal         @db.Decimal(10, 2)
   address             String
   
-  user                User            @relation(fields: [user_id], references: [id])
-  order_products      OrderProduct[] 
+  user                User            @relation(fields: [userId], references: [id])
+  orderProducts       OrderProduct[] 
 }
 
 model OrderProduct {
   id                  String             @id @default(uuid())
-  order_id            String
-  product_id          String
+  orderId             String
+  productId           String
   quantity            Int             @default(1)
-  unit_price          Decimal         @db.Decimal(10, 2)
+  unitPrice           Decimal         @db.Decimal(10, 2)
   
-  order               Order           @relation(fields: [order_id], references: [id])
-  product             Product         @relation(fields: [product_id], references: [id])
+  order               Order           @relation(fields: [orderId], references: [id])
+  product             Product         @relation(fields: [productId], references: [id])
   
-  @@unique([order_id, product_id])
+  @@unique([orderId, productId])
 
 }
 
 model Review{
-  id        String   @id @default(uuid())
-  userId   String
-  user      User   @relation(fields: [userId], references: [id])
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  productId    String
+  product      Product   @relation(fields: [productId], references: [id])
 }
 
 model Variant {

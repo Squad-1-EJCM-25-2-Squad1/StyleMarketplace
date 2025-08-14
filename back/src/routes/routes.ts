@@ -8,7 +8,7 @@ import { ProductController } from '../controllers/productController';
 import { photoUpload } from '../config/uploader';
 import { WishlistController } from '../controllers/WishlistController';
 import { OrderController } from '../controllers/OrderController';
-import { UserController } from "../controllers/UserController";
+import { UserController } from '../controllers/UserController';
 
 
 const router = Router();
@@ -17,22 +17,22 @@ const auth = passport.authenticate("jwt", { session: false });
 
 // Rotas de Wishlist
 router.post('/wishlist', WishlistController.createWishlist);
-router.get('/wishlist/user/:user_id', WishlistController.getWishlistByUser);
-router.delete('/wishlist/:user_id', WishlistController.deleteWishlist);
+router.get('/wishlist/user/:userId', WishlistController.getWishlistByUser);
+router.delete('/wishlist/:userId', WishlistController.deleteWishlist);
 
 // Rotas de Itens da Wishlist
 router.post('/wishlist/items', WishlistController.addItemToWishlist);
-router.get('/wishlist/:user_id/items', WishlistController.getWishlistItems);
-router.delete('/wishlist/:user_id/items/:product_id', WishlistController.removeItemFromWishlist);
-router.get('/wishlist/:user_id/items/:product_id/check', WishlistController.checkProductInWishlist);
+router.get('/wishlist/:userId/items', WishlistController.getWishlistItems);
+router.delete('/wishlist/:userId/items/:product_id', WishlistController.removeItemFromWishlist);
+router.get('/wishlist/:userId/items/:product_id/check', WishlistController.checkProductInWishlist);
 
 // Rotas de Order
 router.post('/orders', OrderController.createOrder);
-router.get('/orders/user/:user_id', OrderController.getOrdersByUser);
-router.get('/orders/:order_id', OrderController.getOrderById);
-router.put('/orders/:order_id/status', OrderController.updateOrderStatus);
-router.post('/orders/:order_id/products', OrderController.addProductToOrder);
-router.delete('/orders/:order_id/products/:product_id', OrderController.removeProductFromOrder);
+router.get('/orders/user/:userId', OrderController.getOrdersByUser);
+router.get('/orders/:orderId', OrderController.getOrderById);
+router.put('/orders/:orderId/status', OrderController.updateOrderStatus);
+router.post('/orders/:orderId/products', OrderController.addProductToOrder);
+router.delete('/orders/:orderId/products/:product_id', OrderController.removeProductFromOrder);
 router.get('/orders', OrderController.getAllOrders);
 
 // --- Rotas de Variantes ---
@@ -65,9 +65,9 @@ router.delete("/offer/:id", OfferController.deleteOffer);
 
 // ======= Product
 
-router.post("/", ProductController.create);
-router.get("/", ProductController.readAll);
-router.get("/:productId", ProductController.readProduct);
+router.post("/product/", ProductController.create);
+router.get("/product/", ProductController.readAll);
+router.get("/product/:productId", ProductController.readProduct);
 router.put("/:productId", ProductController.update);
 router.delete("/:productId", ProductController.deleteProduct);
 

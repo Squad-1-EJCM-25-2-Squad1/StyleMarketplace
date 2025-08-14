@@ -6,11 +6,10 @@ const prisma = new PrismaClient();
 class VariantController {
     public async createVariant(req: Request, res: Response) {
         try {
-            // Pegar os dados do corpo da requisição (productId quando adicionar a model Product)
+            // Pegar os dados do corpo da requisição 
             const { price, stock, isActive, colorId, sizeId, productId } = req.body;
 
-            // (!productId)
-            if (price === undefined || stock === undefined || isActive === undefined || !colorId || !sizeId) {
+            if (price === undefined || stock === undefined || isActive === undefined || !colorId || !sizeId || !productId) {
                 // Retorna um erro 400 se campos essenciais não estiverem presentes
                 return res.status(400).json({ message: 'Todos os campos obrigatórios (price, stock, isActive, productId, colorId, sizeId) devem ser incluídos.' });
             }
@@ -74,8 +73,8 @@ class VariantController {
         try {
             // Pegar o id da variante
             const { id } = req.params;
-            // Pegar os dados do corpo da requisição (productId)
-            const { price, stock, isActive, colorId, sizeId } = req.body;
+            // Pegar os dados do corpo da requisição
+            const { price, stock, isActive, colorId, sizeId, productId } = req.body;
 
             // Encontrar a variante
             const existingVariant = await prisma.variant.findUnique({
@@ -99,7 +98,8 @@ class VariantController {
                     stock, 
                     isActive, 
                     colorId, 
-                    sizeId
+                    sizeId,
+                    productId
                 }
             });
 
