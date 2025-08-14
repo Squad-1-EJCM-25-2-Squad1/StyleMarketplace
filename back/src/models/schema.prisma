@@ -99,6 +99,7 @@ model WishlistItem {
   
   wishlist            Wishlist        @relation(fields: [wishlistId], references: [userId])
   product             Product         @relation(fields: [productId], references: [id])
+
   
   @@unique([wishlistId, productId])
 }

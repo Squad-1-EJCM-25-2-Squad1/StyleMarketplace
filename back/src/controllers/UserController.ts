@@ -17,8 +17,8 @@ export class UserController {
         phone,
         password,
       } = request.body;
+      
       const { hash, salt } = auth.generatePassword(password);
-
 
       const createdUser = await prisma.user.create({
         data: {
@@ -72,8 +72,7 @@ export class UserController {
 
   public static async readUser(request: Request, response: Response) {
     try {
-      //   const { id } = request.user as string;
-      const { id } = request.params;
+      const id  = request.user as string;
 
       try {
         const foundUser = await prisma.user.findUnique({
@@ -98,7 +97,7 @@ export class UserController {
 
   public static async deleteUser(request: Request, response: Response) {
     try {
-      const { userId } = request.params;
+      const userId  = request.user as string;
 
       const deletedUser = await prisma.user.delete({
         where: {
@@ -113,7 +112,7 @@ export class UserController {
 
   public static async updateUser(request: Request, response: Response) {
     try {
-      const { userId } = request.params;
+      const userId  = request.user as string;
       const { firstName, lastName, imageSrc, gender, email, birthDate, phone } =
         request.body;
 
