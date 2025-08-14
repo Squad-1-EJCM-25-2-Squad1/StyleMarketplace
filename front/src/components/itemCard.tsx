@@ -12,11 +12,13 @@ export default function ItemCard(props: ItemCardProps){
     const [wishlistedItem, setWishlistedItem] = useState<boolean>(false)
 
     return(
-        <img src={props.image} alt="" className="relative h-85 w-85">
+        <div className="relative flex items-center justify-center bg-gray-300 w-85 h-85 rounded-xl">
+            <img src={props.image} alt="" className="opacity-20"/>
+            
             <span className="absolute text-white text-xs font-semibold py-1 px-3 rounded-full bg-red-600 top-4 left-4">-{props.discount}%</span>
 
             <button onClick={() => setWishlistedItem(!wishlistedItem)} className="absolute top-4 right-4 bg-white rounded-xl p-4
-            transition duration-300 ease-in-out filter brightness-100 hover:brightness-90">
+            transition duration-300 ease-in-out filter brightness-100 hover:brightness-90 cursor-pointer">
                 {!wishlistedItem && (
                     <img src={wishlist} alt=""/>
                 )}
@@ -25,6 +27,6 @@ export default function ItemCard(props: ItemCardProps){
                     <img src={wishlisted} alt=""/>
                 )}
             </button>
-        </img>
+        </div>
     )
 }
