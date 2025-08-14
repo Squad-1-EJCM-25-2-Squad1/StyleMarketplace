@@ -13,7 +13,7 @@ export class OrderController {
 
       // Validar se o usuário existe
       const user = await prisma.user.findUnique({
-        where: { id: parseInt(user_id) }
+        where: { id: user_id }
       });
 
       if (!user) {
@@ -24,7 +24,7 @@ export class OrderController {
       let totalCost = 0;
       for (const product of products) {
         const productData = await prisma.product.findUnique({
-          where: { id: parseInt(product.product_id) }
+          where: { id: product.product_id }
         });
         
         if (!productData) {
@@ -39,7 +39,7 @@ export class OrderController {
       // Criar o pedido
       const order = await prisma.order.create({
         data: {
-          user_id: parseInt(user_id),
+          user_id: user_id,
           address,
           total_cost: totalCost
         }
@@ -50,8 +50,8 @@ export class OrderController {
         await prisma.orderProduct.create({
           data: {
             order_id: order.id,
-            product_id: parseInt(product.product_id),
-            quantity: parseInt(product.quantity),
+            product_id: product.product_id,
+            quantity: product.quantity,
             unit_price: Number(product.unit_price || 0)
           }
         });
@@ -83,7 +83,7 @@ export class OrderController {
       const { user_id } = req.params;
 
       const orders = await prisma.order.findMany({
-        where: { user_id: parseInt(user_id) },
+        where: { user_id: user_id },
         include: {
           order_products: {
             include: {
@@ -107,7 +107,7 @@ export class OrderController {
       const { order_id } = req.params;
 
       const order = await prisma.order.findUnique({
-        where: { id: parseInt(order_id) },
+        where: { id: order_id },
         include: {
           user: true,
           order_products: {
@@ -141,7 +141,7 @@ export class OrderController {
       }
 
       const order = await prisma.order.update({
-        where: { id: parseInt(order_id) },
+        where: { id: order_id },
         data: { status },
         include: {
           order_products: {
@@ -167,7 +167,7 @@ export class OrderController {
 
       // Verificar se o pedido existe
       const order = await prisma.order.findUnique({
-        where: { id: parseInt(order_id) }
+        where: { id: order_id }
       });
 
       if (!order) {
@@ -176,7 +176,7 @@ export class OrderController {
 
       // Verificar se o produto existe
       const product = await prisma.product.findUnique({
-        where: { id: parseInt(product_id) }
+        where: { id: product_id }
       });
 
       if (!product) {
@@ -186,8 +186,8 @@ export class OrderController {
       // Adicionar produto ao pedido
       const orderProduct = await prisma.orderProduct.create({
         data: {
-          order_id: parseInt(order_id),
-          product_id: parseInt(product_id),
+          order_id: order_id,
+          product_id: product_id,
           quantity: parseInt(quantity),
           unit_price: Number(unit_price)
         },
@@ -198,7 +198,7 @@ export class OrderController {
 
       // Recalcular o custo total do pedido
       const allOrderProducts = await prisma.orderProduct.findMany({
-        where: { order_id: parseInt(order_id) }
+        where: { order_id: order_id }
       });
 
       let newTotalCost = 0;
@@ -208,7 +208,7 @@ export class OrderController {
 
       // Atualizar o custo total do pedido
       await prisma.order.update({
-        where: { id: parseInt(order_id) },
+        where: { id: order_id },
         data: { total_cost: newTotalCost }
       });
 
@@ -228,8 +228,8 @@ export class OrderController {
       const orderProduct = await prisma.orderProduct.findUnique({
         where: {
           order_id_product_id: {
-            order_id: parseInt(order_id),
-            product_id: parseInt(product_id)
+            order_id: order_id,
+            product_id: product_id
           }
         }
       });
@@ -242,15 +242,15 @@ export class OrderController {
       await prisma.orderProduct.delete({
         where: {
           order_id_product_id: {
-            order_id: parseInt(order_id),
-            product_id: parseInt(product_id)
+            order_id: order_id,
+            product_id: product_id
           }
         }
       });
 
       // Recalcular o custo total do pedido
       const remainingOrderProducts = await prisma.orderProduct.findMany({
-        where: { order_id: parseInt(order_id) }
+        where: { order_id: order_id }
       });
 
       let newTotalCost = 0;
@@ -260,7 +260,7 @@ export class OrderController {
 
       // Atualizar o custo total do pedido
       await prisma.order.update({
-        where: { id: parseInt(order_id) },
+        where: { id: order_id },
         data: { total_cost: newTotalCost }
       });
 

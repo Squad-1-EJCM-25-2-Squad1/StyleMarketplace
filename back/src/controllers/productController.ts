@@ -49,6 +49,18 @@ export class ProductController {
                 include: {
                     category: true,
                     images: true,
+                    reviews: true,
+                    variants: {
+                        include: { 
+                            color: true,
+                            size: true,
+                        },
+                    },
+                    productOffers: { 
+                        include: {
+                            offer: true,
+                        },
+                    },   
                 },
             });
 
@@ -64,7 +76,23 @@ export class ProductController {
             const { productId } = req.params;
 
             const foundProduct = await prisma.product.findUnique({
-                where: { id: productId}
+                where: { id: productId},
+                include: {
+                    category: true,
+                    images: true,
+                    reviews: true,
+                    variants: {
+                        include: { 
+                            color: true,
+                            size: true,
+                        },
+                    },
+                    productOffers: { 
+                        include: {
+                            offer: true,
+                        },
+                    },   
+                },
             });
 
             if(!foundProduct){
@@ -109,8 +137,22 @@ export class ProductController {
                 },
                 include: {
                     category: true,
+                    images: true,
+                    reviews: true,
+                    variants: {
+                        include: { 
+                            color: true,
+                            size: true,
+                        },
+                    },
+                    productOffers: { 
+                        include: {
+                            offer: true,
+                        },
+                    },   
                 },
             });
+            
             res.status(200).json(updatedProduct);
         } catch (error: any) {
             res.status(500).json({ message: error.message });

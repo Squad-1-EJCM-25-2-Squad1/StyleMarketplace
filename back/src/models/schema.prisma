@@ -56,7 +56,7 @@ model Product {
   variants       Variant[]      
   offers         ProductOffer[] 
   wishlistItems  WishlistItem[] 
-  //cartItems      CartItem[]
+  //cartItems    CartItem[]
 }
 
 model ProductImage {
@@ -85,12 +85,10 @@ model Cart{
 // Falta implementar a model CartItem tambem
 
 model Wishlist {
-  id            String          @id @default(uuid())
-  created_date  DateTime        @default(now())
-  items         Wishlist_item[]
-
-  user_id       String          @unique
-  user          User            @relation(fields: [user_id], references: [id])
+  user_id             String          @id 
+  user                User            @relation("UserWishlist", fields: [user_id], references: [id])
+  created_date        DateTime        @default(now())
+  items               Wishlist_item[]
 }
 
 model Wishlist_item {
@@ -133,7 +131,7 @@ model OrderProduct {
 
 model Review{
   id        String   @id @default(uuid())
-  userId   String
+  userId    String
   user      User   @relation(fields: [ownerId], references: [id])
 }
 
