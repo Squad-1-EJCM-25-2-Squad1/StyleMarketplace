@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -29,12 +29,9 @@ model User {
   hash String
   salt String
 
-  //Fazer ser obrigatorio a criação de tanto um cart quanto uma wishlist, mesmo que vazios
-  //na criação do usuário, pode ser alterado depois para uma aproximação mais simples
-  cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  cartId     String   @unique
-  wishlist   Wishlist  @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
-  wishlistId String   @unique
+  //relação 1:1
+  cart       Cart?
+  wishlist   Wishlist? 
 
   //relaçoes com outras models
   orders Order[]
@@ -42,19 +39,24 @@ model User {
 }
 
 model Product {
-  id          String    @id @default(uuid())
-  name        String
-  description String
-  basePrice   Decimal
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
+  id             String    @id @default(uuid())
+  name           String
+  description    String
+  basePrice      Decimal
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
 
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId     String
+  category       Category  @relation(fields: [categoryId], references: [id])
   
-  order_products      OrderProduct[] // Relação com OrderProduct
+  orderProducts  OrderProduct[] // Relação com OrderProduct
 
-  images      ProductImage[]
+  images         ProductImage[]
+  reviews        Review[]
+  variants       Variant[]      
+  offers         Offer[] 
+  wishlistItems  WishlistItem[] 
+  //cartItems    CartItem[]
 }
 
 model ProductImage {
@@ -67,67 +69,72 @@ model ProductImage {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(uuid())
   name     String    @unique
   products Product[]
 }   
 
-
+// falta implementar essa model completamente
 model Cart{
   id       String   @id @default(uuid())
-  owner    User?
 
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
 }
+
+// Falta implementar a model CartItem tambem
 
 model Wishlist {
-  user_id             Int             @id
-  user                User            @relation("UserWishlist", fields: [user_id], references: [id])
-  created_date        DateTime        @default(now())
-  items               Wishlist_item[]
+  userId              String          @id 
+  user                User            @relation(fields: [userId], references: [id])
+  createdDate         DateTime        @default(now())
+  items               WishlistItem[]
 }
 
-model Wishlist_item {
-  wishlist_item_id    Int             @id @default(autoincrement())
-  wishlist_id         Int
-  product_id          Int
-  added_date          DateTime        @default(now())
+model WishlistItem {
+  wishlistItemId      String          @id @default(uuid())
+  wishlistId          String
+  productId           String
+  addedDate           DateTime        @default(now())
   
-  wishlist            Wishlist        @relation(fields: [wishlist_id], references: [user_id])
-  product             Product         @relation(fields: [product_id], references: [id])
+  wishlist            Wishlist        @relation(fields: [wishlistId], references: [userId])
+  product             Product         @relation(fields: [productId], references: [id])
   
-  @@unique([wishlist_id, product_id])
+  @@unique([wishlistId, productId])
 }
 
 model Order {
-  id                  Int             @id @default(autoincrement())
-  user_id             Int
+  id                  String          @id @default(uuid())
+  userId              String
   status              String          @default("pending") // pending, shipped, delivered, cancelled
-  date_ordered        DateTime        @default(now())
-  total_cost          Decimal         @db.Decimal(10, 2)
+  dateOrdered         DateTime        @default(now())
+  totalCost           Decimal         @db.Decimal(10, 2)
   address             String
   
-  user                User            @relation(fields: [user_id], references: [id])
-  order_products      OrderProduct[] 
+  user                User            @relation(fields: [userId], references: [id])
+  orderProducts       OrderProduct[] 
 }
 
 model OrderProduct {
-  id                  Int             @id @default(autoincrement())
-  order_id            Int
-  product_id          Int
+  id                  String             @id @default(uuid())
+  orderId             String
+  productId           String
   quantity            Int             @default(1)
-  unit_price          Decimal         @db.Decimal(10, 2)
+  unitPrice           Decimal         @db.Decimal(10, 2)
   
-  order               Order           @relation(fields: [order_id], references: [id])
-  product             Product         @relation(fields: [product_id], references: [id])
+  order               Order           @relation(fields: [orderId], references: [id])
+  product             Product         @relation(fields: [productId], references: [id])
   
-  @@unique([order_id, product_id])
+  @@unique([orderId, productId])
 
 }
 
 model Review{
-  id        String   @id @default(uuid())
-  ownerId String
-  owner    User   @relation(fields: [ownerId], references: [id])
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  productId    String
+  product      Product   @relation(fields: [productId], references: [id])
 }
 
 model Variant {
@@ -136,8 +143,8 @@ model Variant {
   stock     Int       
   isActive  Boolean   
 
-  //productId String    
-  //product   Product   @relation(fields: [productId], references: [id])
+  productId String    
+  product   Product   @relation(fields: [productId], references: [id])
 
   colorId   String      
   color     Color     @relation(fields: [colorId], references: [id])
@@ -165,13 +172,13 @@ model Offer {
   name          String    
   description   String?   
   discountType  String    
-  discountValue Float     
+  discountValue Decimal     
   startsAt      DateTime  
   endsAt        DateTime  
   isActive      Boolean   
 
-  //productId     String    
-  //product       Product   @relation(fields: [productId], references: [id]) 
+  productId     String    
+  product       Product   @relation(fields: [productId], references: [id]) 
 
   //cartItems     CartItem[]
 }

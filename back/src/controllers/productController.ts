@@ -49,6 +49,17 @@ export class ProductController {
                 include: {
                     category: true,
                     images: true,
+                    reviews: true,
+                    variants: {
+                        include: { 
+                            color: true,
+                            size: true,
+                        },
+                    },
+                    offers: { 
+                        include: {
+                        },
+                    },   
                 },
             });
 
@@ -64,7 +75,22 @@ export class ProductController {
             const { productId } = req.params;
 
             const foundProduct = await prisma.product.findUnique({
-                where: { id: productId}
+                where: { id: productId},
+                include: {
+                    category: true,
+                    images: true,
+                    reviews: true,
+                    variants: {
+                        include: { 
+                            color: true,
+                            size: true,
+                        },
+                    },
+                    offers: { 
+                        include: {
+                        },
+                    },   
+                },
             });
 
             if(!foundProduct){
@@ -99,7 +125,7 @@ export class ProductController {
             } 
 
             const updatedProduct = await prisma.product.update({
-                where: { id: categoryId },
+                where: { id: productId },
                 data: {
                     name,
                     description,
@@ -109,8 +135,21 @@ export class ProductController {
                 },
                 include: {
                     category: true,
+                    images: true,
+                    reviews: true,
+                    variants: {
+                        include: { 
+                            color: true,
+                            size: true,
+                        },
+                    },
+                    offers: { 
+                        include: {
+                        },
+                    },   
                 },
             });
+            
             res.status(200).json(updatedProduct);
         } catch (error: any) {
             res.status(500).json({ message: error.message });
@@ -144,7 +183,7 @@ export class ProductController {
 
     public static async uploadImage(req: Request, res: Response) {
         try {
-            const { produtoId, isMain } = req.params;
+            const { productId } = req.params;
 
             if (!req.file) {
             return res.status(400).json({ message: "Nenhum arquivo enviado." });
@@ -156,7 +195,7 @@ export class ProductController {
             const newImage = await prisma.productImage.create({
             data: {
                 imageUrl: imagePath,
-                productId: produtoId,
+                productId: productId,
                 isMain: false
             }
             });
