@@ -81,8 +81,8 @@ router.post("product/:produtoId/image",photoUpload.single("image"),ProductContro
 
 router.post("/signup", validateSignup, UserController.signup);
 router.post("/login", validateLogin, UserController.login);
-router.get("/user:userId", auth, validateUserIdParam, UserController.readUser);
-router.put("/user:userId", auth, validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
+router.get("/user/:userId", auth, validateUserIdParam, UserController.readUser);
+router.put("/user/:userId", auth, validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
 router.delete("/user/:userId", auth, validateUserIdParam, UserController.deleteUser);
 router.get("/me",auth, validateUserIdParam, UserController.readMe);
 
