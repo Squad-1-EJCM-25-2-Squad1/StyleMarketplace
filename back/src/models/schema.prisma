@@ -79,14 +79,14 @@ model Cart{
   id       String   @id @default(uuid())
 
   userId        String   @unique
-  user          User     @relation(fields: [userId], references: [id])
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Falta implementar a model CartItem tambem
 
 model Wishlist {
   userId              String          @id 
-  user                User            @relation(fields: [userId], references: [id])
+  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdDate         DateTime        @default(now())
   items               WishlistItem[]
 }

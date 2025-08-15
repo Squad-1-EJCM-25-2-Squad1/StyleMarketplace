@@ -63,8 +63,9 @@ export class UserController {
       if (!auth.checkPassword(password, hash, salt)) {
         return response.status(400).json({ message: "Senha incorreta" });
       }
+      const token = auth.generateJWT(user);
 
-      return response.status(201).json({ message: "Login completo" });
+      return response.status(201).json({ message: "Login completo", token: token});
     } catch (error) {
       return response.status(500).json();
     }
@@ -72,12 +73,12 @@ export class UserController {
 
   public static async readUser(request: Request, response: Response) {
     try {
-      const id  = request.user as string;
+      const { userId }  = request.params;
 
       try {
         const foundUser = await prisma.user.findUnique({
           where: {
-            id: id,
+            id: userId,
           },
           include: {
             wishlist: true,
@@ -97,7 +98,7 @@ export class UserController {
 
   public static async deleteUser(request: Request, response: Response) {
     try {
-      const userId  = request.user as string;
+      const { userId }  = request.params;
 
       const deletedUser = await prisma.user.delete({
         where: {
@@ -112,7 +113,7 @@ export class UserController {
 
   public static async updateUser(request: Request, response: Response) {
     try {
-      const userId  = request.user as string;
+      const { userId } = request.params;
       const { firstName, lastName, imageSrc, gender, email, birthDate, phone } =
         request.body;
 
@@ -146,6 +147,30 @@ export class UserController {
       response.status(200).json(users);
     } catch (error: any) {
       response.status(500).json({ message: error.message });
+    }
+  }
+
+  public static async readMe(request: Request, response: Response) {
+    try {
+      const userId  = request.user as string;
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        include: {
+          cart: true,
+          wishlist: true,
+          orders: true,
+          reviews: true,
+        },
+      });
+
+      if (!user) {
+        return response.status(404).json({ message: "Usuário não encontrado" });
+      }
+
+      return response.status(200).json(user);
+    } catch (error: any) {
+      return response.status(500).json({ message: error.message });
     }
   }
 }
