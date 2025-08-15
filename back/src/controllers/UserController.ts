@@ -63,8 +63,9 @@ export class UserController {
       if (!auth.checkPassword(password, hash, salt)) {
         return response.status(400).json({ message: "Senha incorreta" });
       }
+      const token = auth.generateJWT(user);
 
-      return response.status(201).json({ message: "Login completo" });
+      return response.status(201).json({ message: "Login completo", token: token});
     } catch (error) {
       return response.status(500).json();
     }
