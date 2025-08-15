@@ -72,14 +72,14 @@ router.delete("/offer/:id", validateOfferIdParam, OfferController.deleteOffer);
 
 // ======= Product
 
-router.post("/product/product", validateProductCreateBody, ProductController.create);
-router.get("/product/product", ProductController.readAll);
+router.post("/product", validateProductCreateBody, ProductController.create);
+router.get("/product", ProductController.readAll);
 router.get("/product/:productId", validateProductIdParam, ProductController.readProduct);
 router.put("/product/:productId", validateProductIdParam, validateProductUpdateBody, ProductController.update);
 router.delete("/product/:productId", validateProductIdParam, ProductController.deleteProduct);
 
 router.post(
-  "/:produtoId/image",
+  "/product/:produtoId/image",
   photoUpload.single("image"),
   ProductController.uploadImage
 );
