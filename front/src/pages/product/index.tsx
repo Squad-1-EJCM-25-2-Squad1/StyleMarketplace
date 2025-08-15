@@ -16,6 +16,16 @@ import ratingStar from "../../assets/home/ratingStar.svg";
 import hollowStar from "../../assets/product/hollowStar.svg";
 import ColorSelection from "../../components/colorSelection";
 import SizeSelection from "../../components/sizeSelection";
+import grayMinusSign from "../../assets/product/grayMinusSign.svg";
+import blackMinusSign from "../../assets/product/blackMinusSign.svg";
+import grayPlusSign from "../../assets/product/grayPlusSign.svg";
+import blackPlusSign from "../../assets/product/blackPlusSign.svg";
+import cart from "../../assets/sales/whiteCart.svg";
+import share from "../../assets/product/share.svg";
+import InfoIcons from "../../components/infoIcons";
+import shippingIcon from "../../assets/home/shippingIcon.svg";
+import returnsIcon from "../../assets/home/returnsIcon.svg";
+import securityIcon from "../../assets/home/securityIcon.svg";
 
 export default function Product(){
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -24,6 +34,22 @@ export default function Product(){
     let rating = 4.8;
     let filledStars = Math.floor(rating);
     let hollowStars = totalStars - filledStars;
+
+    const productQuantityAvailable = 12;
+
+    let [productQuantity, setProductQuantity] = useState<number>(1);
+
+    function handleSubtraction(){
+        if(productQuantity > 1){
+            setProductQuantity(productQuantity = productQuantity - 1);
+        }
+    }
+
+    function handleAddition(){
+        if(productQuantity < productQuantityAvailable){
+            setProductQuantity(productQuantity = productQuantity + 1);
+        }
+    }
 
     return(
         <div className="flex flex-col">
@@ -180,6 +206,79 @@ export default function Product(){
 
                             <button className="flex text-gray-950 text-sm font-semibold cursor-pointer">Size Guide</button>
                         </div>
+
+                        <div className="flex flex-col gap-3 text-gray-950 text-base font-semibold">
+                            Quantity
+
+                            <div className="flex gap-3 items-center">
+                                <div className="flex justify-between items-center w-35 border border-gray-300 rounded-xl">
+                                    <button onClick={handleSubtraction} className="p-3 cursor-pointer">
+                                        {productQuantity === 1 && (
+                                            <img src={grayMinusSign} alt=""/>
+                                        )}
+
+                                        {productQuantity > 1 && (
+                                            <img src={blackMinusSign} alt=""/>
+                                        )}
+                                    </button>
+
+                                    {productQuantity}
+
+                                    <button onClick={handleAddition} className="p-3 cursor-pointer">
+                                        {productQuantity === productQuantityAvailable && (
+                                            <img src={grayPlusSign} alt=""/>
+                                        )}
+
+                                        {productQuantity < productQuantityAvailable && (
+                                            <img src={blackPlusSign} alt=""/>
+                                        )}
+                                    </button>
+                                </div>
+                                
+                                <span className="text-gray-500 text-sm font-normal">Max {productQuantityAvailable} items</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <div className="flex gap-3">
+                            <button className="flex flex-grow justify-center items-center gap-2 h-11 bg-black rounded-xl text-gray-50 text-sm font-semibold cursor-pointer">
+                                <img src={cart} alt=""/>
+
+                                Add to Cart
+                            </button>
+
+                            <button className="flex justify-center items-center w-20 h-11 border border-gray-300 rounded-xl cursor-pointer">
+                                <img src={share} alt=""/>
+                            </button>
+                        </div>
+
+                        <button className="flex flex-grow h-11 justify-center items-center border border-gray-300 rounded-xl text-gray-950 text-sm font-semibold cursor-pointer">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div className="flex justify-between items-center w-full py-6 border-y border-gray-300">
+                        <InfoIcons       
+                            image = {shippingIcon}
+                            title = "Free Shipping"
+                            subtitle = "On orders over $50"
+                            hasBackground = {false}
+                        />
+
+                        <InfoIcons       
+                            image = {returnsIcon}
+                            title = "Easy Returns"
+                            subtitle = "30-day return policy"
+                            hasBackground = {false}
+                        />
+
+                        <InfoIcons       
+                            image = {securityIcon}
+                            title = "Secure Payment"
+                            subtitle = "100% secure checkout"
+                            hasBackground = {false}
+                        />
                     </div>
                 </div>
             </main>
