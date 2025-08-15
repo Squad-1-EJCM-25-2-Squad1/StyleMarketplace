@@ -88,9 +88,9 @@ router.post(
 
 router.post("/signup", validateSignup, UserController.signup);
 router.post("/login", validateLogin, UserController.login);
-router.get("/user", auth, validateUserIdParam, UserController.readUser);
-router.put("/user", auth, validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
-router.delete("/user", auth, validateUserIdParam, UserController.deleteUser);
+router.get("/user:userId", auth, validateUserIdParam, UserController.readUser);
+router.put("/user:userId", auth, validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
+router.delete("/user/:userId", auth, validateUserIdParam, UserController.deleteUser);
 router.get("/me",auth, validateUserIdParam, UserController.readUser);
 
 //rota de teste para pegar os IDs, pode ser apagada depois
