@@ -74,25 +74,21 @@ router.delete("/offer/:id", validateOfferIdParam, OfferController.deleteOffer);
 
 router.post("/product", validateProductCreateBody, ProductController.create);
 router.get("/product", ProductController.readAll);
-router.get("/:productId", validateProductIdParam, ProductController.readProduct);
-router.put("/:productId", validateProductIdParam, validateProductUpdateBody, ProductController.update);
-router.delete("/:productId", validateProductIdParam, ProductController.deleteProduct);
+router.get("/product/:productId", validateProductIdParam, ProductController.readProduct);
+router.put("/product/:productId", validateProductIdParam, validateProductUpdateBody, ProductController.update);
+router.delete("product/:productId", validateProductIdParam, ProductController.deleteProduct);
 
-router.post(
-  "/:produtoId/image",
-  photoUpload.single("image"),
-  ProductController.uploadImage
-);
+router.post("/:produtoId/image",photoUpload.single("image"),ProductController.uploadImage);
 
 // ======= User
 
 router.post("/signup", validateSignup, UserController.signup);
 router.post("/login", validateLogin, UserController.login);
 router.get("/user/:userId", validateUserIdParam, UserController.readUser);
-router.get("/user/:userId", validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
+router.put("/user/:userId", validateUserIdParam, validateUserUpdateBody, UserController.updateUser);
 router.delete("/user/:userId", validateUserIdParam, UserController.deleteUser);
 
 //rota de teste para pegar os IDs, pode ser apagada depois
-//router.get("/users", UserController.readAllUsers);
+router.get("/users", UserController.readAllUsers);
 
 export default router;
