@@ -78,7 +78,7 @@ router.get("/product/:productId", validateProductIdParam, ProductController.read
 router.put("/product/:productId", validateProductIdParam, validateProductUpdateBody, ProductController.update);
 router.delete("product/:productId", validateProductIdParam, ProductController.deleteProduct);
 
-router.post("/:produtoId/image",photoUpload.single("image"),ProductController.uploadImage);
+router.post("product/:produtoId/image",photoUpload.single("image"),ProductController.uploadImage);
 
 // ======= User
 
