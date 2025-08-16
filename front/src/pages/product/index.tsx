@@ -52,6 +52,18 @@ export default function Product(){
         }
     }
 
+    const [selectedColor, setSelectedColor] = useState('#000000');
+
+    const handleColorClick = (color: string) => {
+        setSelectedColor(color);
+    };
+
+    const [selectedSize, setSelectedSize] = useState("M")
+
+    const handleSizeClick = (size: string) => {
+        setSelectedSize(size);
+    }
+
     return(
         <div className="flex flex-col">
             <Header/>
@@ -157,21 +169,29 @@ export default function Product(){
                                     <ColorSelection 
                                         bgColor = "#000000"
                                         onStock = {true}
+                                        onClick={() => handleColorClick('#000000')}
+                selectedColor={selectedColor}
                                     />
 
                                     <ColorSelection 
                                         bgColor = "#FFFFFF"
                                         onStock = {true}
+                                        onClick={() => handleColorClick('#FFFFFF')}
+                selectedColor={selectedColor}
                                     />
 
                                     <ColorSelection 
                                         bgColor = "#1E40AF"
                                         onStock = {true}
+                                        onClick={() => handleColorClick('#1E40AF')}
+                selectedColor={selectedColor}
                                     />
 
                                     <ColorSelection 
                                         bgColor = "#EF4343"
                                         onStock = {false}
+                                        onClick={() => handleColorClick('#EF4343')}
+                selectedColor={selectedColor}
                                     />
                                 </div>
                             </div>
@@ -183,26 +203,36 @@ export default function Product(){
                                     <SizeSelection
                                         size = "XS"
                                         onStock = {true}
+                                        onClick={() => handleSizeClick("XS")}
+                                        selectedSize={selectedSize}
                                     />
 
                                     <SizeSelection
                                         size = "S"
                                         onStock = {true}
+                                        onClick={() => handleSizeClick("S")}
+                                        selectedSize={selectedSize}
                                     />
                                     
                                     <SizeSelection
                                         size = "M"
                                         onStock = {true}
+                                        onClick={() => handleSizeClick("M")}
+                                        selectedSize={selectedSize}
                                     />
 
                                     <SizeSelection
                                         size = "L"
                                         onStock = {true}
+                                        onClick={() => handleSizeClick("L")}
+                                        selectedSize={selectedSize}
                                     />
 
                                     <SizeSelection
                                         size = "XL"
                                         onStock = {false}
+                                        onClick={() => handleSizeClick("XL")}
+                                        selectedSize={selectedSize}
                                     />
                                 </div>
 
